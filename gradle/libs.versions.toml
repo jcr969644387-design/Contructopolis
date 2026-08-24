@@ -18,7 +18,7 @@ robolectric = "4.13"
 truth = "1.4.4"
 coroutinesTest = "1.8.1"
 serialization = "1.9.24"
-serializationJson = "1.7.1"
+serializationJson = "1.6.3"
 turbine = "1.1.0"
 
 [libraries]
