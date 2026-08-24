@@ -1,0 +1,1661 @@
+[
+  {
+    "id": "c01_viga",
+    "orderInChapter": 1,
+    "worldChapter": 1,
+    "title": "Primer Puente",
+    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "category": "VIGA",
+    "gridWidth": 6,
+    "gridHeight": 6,
+    "maxBudget": 400,
+    "starThreshold2": 55,
+    "starThreshold3": 78,
+    "allowedMaterials": [
+      "MADERA"
+    ],
+    "iconRes": "ic_challenge_viga",
+    "goals": [
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 120
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c02_viga",
+    "orderInChapter": 2,
+    "worldChapter": 1,
+    "title": "Pasarela del Taller",
+    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "category": "VIGA",
+    "gridWidth": 6,
+    "gridHeight": 8,
+    "maxBudget": 440,
+    "starThreshold2": 56,
+    "starThreshold3": 79,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_viga",
+    "goals": [
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 160
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c03_viga",
+    "orderInChapter": 3,
+    "worldChapter": 1,
+    "title": "Balcón de Nova",
+    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "category": "VIGA",
+    "gridWidth": 7,
+    "gridHeight": 8,
+    "maxBudget": 480,
+    "starThreshold2": 57,
+    "starThreshold3": 80,
+    "allowedMaterials": [
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_viga",
+    "goals": [
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 200
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c04_viga",
+    "orderInChapter": 4,
+    "worldChapter": 1,
+    "title": "Puente de Andamios",
+    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "category": "VIGA",
+    "gridWidth": 7,
+    "gridHeight": 9,
+    "maxBudget": 520,
+    "starThreshold2": 58,
+    "starThreshold3": 81,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_viga",
+    "goals": [
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 260
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c05_viga",
+    "orderInChapter": 5,
+    "worldChapter": 1,
+    "title": "Viga Maestra",
+    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "category": "VIGA",
+    "gridWidth": 8,
+    "gridHeight": 9,
+    "maxBudget": 560,
+    "starThreshold2": 59,
+    "starThreshold3": 82,
+    "allowedMaterials": [
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_viga",
+    "goals": [
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 300
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c06_viga",
+    "orderInChapter": 6,
+    "worldChapter": 1,
+    "title": "Pasarela Doble",
+    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "category": "VIGA",
+    "gridWidth": 8,
+    "gridHeight": 10,
+    "maxBudget": 600,
+    "starThreshold2": 60,
+    "starThreshold3": 83,
+    "allowedMaterials": [
+      "MADERA",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_viga",
+    "goals": [
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 340
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c07_viga",
+    "orderInChapter": 7,
+    "worldChapter": 1,
+    "title": "Puente del Río Datos",
+    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "category": "VIGA",
+    "gridWidth": 9,
+    "gridHeight": 10,
+    "maxBudget": 640,
+    "starThreshold2": 61,
+    "starThreshold3": 84,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_viga",
+    "goals": [
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 380
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c08_viga",
+    "orderInChapter": 8,
+    "worldChapter": 1,
+    "title": "Viga sin Miedo",
+    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "category": "VIGA",
+    "gridWidth": 9,
+    "gridHeight": 11,
+    "maxBudget": 680,
+    "starThreshold2": 62,
+    "starThreshold3": 85,
+    "allowedMaterials": [
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_viga",
+    "goals": [
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 420
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c09_columna",
+    "orderInChapter": 1,
+    "worldChapter": 2,
+    "title": "Pilar de Entrada",
+    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "category": "COLUMNA",
+    "gridWidth": 6,
+    "gridHeight": 6,
+    "maxBudget": 500,
+    "starThreshold2": 55,
+    "starThreshold3": 78,
+    "allowedMaterials": [
+      "MADERA"
+    ],
+    "iconRes": "ic_challenge_columna",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 6
+      },
+      {
+        "type": "PESO_MAXIMO",
+        "value": 80
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c10_columna",
+    "orderInChapter": 2,
+    "worldChapter": 2,
+    "title": "Columnas Gemelas",
+    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "category": "COLUMNA",
+    "gridWidth": 6,
+    "gridHeight": 8,
+    "maxBudget": 560,
+    "starThreshold2": 56,
+    "starThreshold3": 79,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_columna",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 8
+      },
+      {
+        "type": "PESO_MAXIMO",
+        "value": 90
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c11_columna",
+    "orderInChapter": 3,
+    "worldChapter": 2,
+    "title": "Soporte Central",
+    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "category": "COLUMNA",
+    "gridWidth": 7,
+    "gridHeight": 8,
+    "maxBudget": 620,
+    "starThreshold2": 57,
+    "starThreshold3": 80,
+    "allowedMaterials": [
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_columna",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 8
+      },
+      {
+        "type": "PESO_MAXIMO",
+        "value": 100
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c12_columna",
+    "orderInChapter": 4,
+    "worldChapter": 2,
+    "title": "Columna Robusta",
+    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "category": "COLUMNA",
+    "gridWidth": 7,
+    "gridHeight": 9,
+    "maxBudget": 680,
+    "starThreshold2": 58,
+    "starThreshold3": 81,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_columna",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 10
+      },
+      {
+        "type": "PESO_MAXIMO",
+        "value": 110
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c13_columna",
+    "orderInChapter": 5,
+    "worldChapter": 2,
+    "title": "Pilares del Depósito",
+    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "category": "COLUMNA",
+    "gridWidth": 8,
+    "gridHeight": 9,
+    "maxBudget": 740,
+    "starThreshold2": 59,
+    "starThreshold3": 82,
+    "allowedMaterials": [
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_columna",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 10
+      },
+      {
+        "type": "PESO_MAXIMO",
+        "value": 120
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c14_columna",
+    "orderInChapter": 6,
+    "worldChapter": 2,
+    "title": "Columna de Concreto",
+    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "category": "COLUMNA",
+    "gridWidth": 8,
+    "gridHeight": 10,
+    "maxBudget": 800,
+    "starThreshold2": 60,
+    "starThreshold3": 83,
+    "allowedMaterials": [
+      "MADERA",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_columna",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 12
+      },
+      {
+        "type": "PESO_MAXIMO",
+        "value": 130
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c15_columna",
+    "orderInChapter": 7,
+    "worldChapter": 2,
+    "title": "Soporte Triple",
+    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "category": "COLUMNA",
+    "gridWidth": 9,
+    "gridHeight": 10,
+    "maxBudget": 860,
+    "starThreshold2": 61,
+    "starThreshold3": 84,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_columna",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 12
+      },
+      {
+        "type": "PESO_MAXIMO",
+        "value": 140
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c16_columna",
+    "orderInChapter": 8,
+    "worldChapter": 2,
+    "title": "Pilar Definitivo",
+    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "category": "COLUMNA",
+    "gridWidth": 9,
+    "gridHeight": 11,
+    "maxBudget": 920,
+    "starThreshold2": 62,
+    "starThreshold3": 85,
+    "allowedMaterials": [
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_columna",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 14
+      },
+      {
+        "type": "PESO_MAXIMO",
+        "value": 150
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c17_torre",
+    "orderInChapter": 1,
+    "worldChapter": 3,
+    "title": "Torre Vigía",
+    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "category": "TORRE",
+    "gridWidth": 6,
+    "gridHeight": 6,
+    "maxBudget": 500,
+    "starThreshold2": 55,
+    "starThreshold3": 78,
+    "allowedMaterials": [
+      "MADERA"
+    ],
+    "iconRes": "ic_challenge_torre",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 10
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 10
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c18_torre",
+    "orderInChapter": 2,
+    "worldChapter": 3,
+    "title": "Torre de Señales",
+    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "category": "TORRE",
+    "gridWidth": 6,
+    "gridHeight": 8,
+    "maxBudget": 560,
+    "starThreshold2": 56,
+    "starThreshold3": 79,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_torre",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 12
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 15
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c19_torre",
+    "orderInChapter": 3,
+    "worldChapter": 3,
+    "title": "Torre del Faro",
+    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "category": "TORRE",
+    "gridWidth": 7,
+    "gridHeight": 8,
+    "maxBudget": 620,
+    "starThreshold2": 57,
+    "starThreshold3": 80,
+    "allowedMaterials": [
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_torre",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 14
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 15
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c20_torre",
+    "orderInChapter": 4,
+    "worldChapter": 3,
+    "title": "Torre Estelar",
+    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "category": "TORRE",
+    "gridWidth": 7,
+    "gridHeight": 9,
+    "maxBudget": 680,
+    "starThreshold2": 58,
+    "starThreshold3": 81,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_torre",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 16
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 20
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c21_torre",
+    "orderInChapter": 5,
+    "worldChapter": 3,
+    "title": "Torre Skyline",
+    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "category": "TORRE",
+    "gridWidth": 8,
+    "gridHeight": 9,
+    "maxBudget": 740,
+    "starThreshold2": 59,
+    "starThreshold3": 82,
+    "allowedMaterials": [
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_torre",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 18
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 20
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c22_torre",
+    "orderInChapter": 6,
+    "worldChapter": 3,
+    "title": "Torre Gemela",
+    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "category": "TORRE",
+    "gridWidth": 8,
+    "gridHeight": 10,
+    "maxBudget": 800,
+    "starThreshold2": 60,
+    "starThreshold3": 83,
+    "allowedMaterials": [
+      "MADERA",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_torre",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 20
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 25
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c23_torre",
+    "orderInChapter": 7,
+    "worldChapter": 3,
+    "title": "Torre Cuadrada",
+    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "category": "TORRE",
+    "gridWidth": 9,
+    "gridHeight": 10,
+    "maxBudget": 860,
+    "starThreshold2": 61,
+    "starThreshold3": 84,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_torre",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 22
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 25
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c24_torre",
+    "orderInChapter": 8,
+    "worldChapter": 3,
+    "title": "Torre Corona",
+    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "category": "TORRE",
+    "gridWidth": 9,
+    "gridHeight": 11,
+    "maxBudget": 920,
+    "starThreshold2": 62,
+    "starThreshold3": 85,
+    "allowedMaterials": [
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_torre",
+    "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 24
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 30
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c25_carga",
+    "orderInChapter": 1,
+    "worldChapter": 4,
+    "title": "Ráfaga Suave",
+    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "category": "CARGA",
+    "gridWidth": 6,
+    "gridHeight": 6,
+    "maxBudget": 500,
+    "starThreshold2": 55,
+    "starThreshold3": 78,
+    "allowedMaterials": [
+      "MADERA"
+    ],
+    "iconRes": "ic_challenge_carga",
+    "goals": [
+      {
+        "type": "RESISTIR_CARGA_LATERAL",
+        "value": 1
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 20
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": [
+      {
+        "x": 3,
+        "y": 5,
+        "magnitude": 20,
+        "isLateral": true
+      }
+    ]
+  },
+  {
+    "id": "c26_carga",
+    "orderInChapter": 2,
+    "worldChapter": 4,
+    "title": "Viento del Norte",
+    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "category": "CARGA",
+    "gridWidth": 6,
+    "gridHeight": 8,
+    "maxBudget": 560,
+    "starThreshold2": 56,
+    "starThreshold3": 79,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_carga",
+    "goals": [
+      {
+        "type": "RESISTIR_CARGA_LATERAL",
+        "value": 1
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 25
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": [
+      {
+        "x": 3,
+        "y": 7,
+        "magnitude": 24,
+        "isLateral": true
+      }
+    ]
+  },
+  {
+    "id": "c27_carga",
+    "orderInChapter": 3,
+    "worldChapter": 4,
+    "title": "Tormenta Ligera",
+    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "category": "CARGA",
+    "gridWidth": 7,
+    "gridHeight": 8,
+    "maxBudget": 620,
+    "starThreshold2": 57,
+    "starThreshold3": 80,
+    "allowedMaterials": [
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_carga",
+    "goals": [
+      {
+        "type": "RESISTIR_CARGA_LATERAL",
+        "value": 1
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 25
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": [
+      {
+        "x": 3,
+        "y": 7,
+        "magnitude": 28,
+        "isLateral": true
+      }
+    ]
+  },
+  {
+    "id": "c28_carga",
+    "orderInChapter": 4,
+    "worldChapter": 4,
+    "title": "Viento Cruzado",
+    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "category": "CARGA",
+    "gridWidth": 7,
+    "gridHeight": 9,
+    "maxBudget": 680,
+    "starThreshold2": 58,
+    "starThreshold3": 81,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_carga",
+    "goals": [
+      {
+        "type": "RESISTIR_CARGA_LATERAL",
+        "value": 1
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 30
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": [
+      {
+        "x": 3,
+        "y": 8,
+        "magnitude": 32,
+        "isLateral": true
+      }
+    ]
+  },
+  {
+    "id": "c29_carga",
+    "orderInChapter": 5,
+    "worldChapter": 4,
+    "title": "Vendaval de Prueba",
+    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "category": "CARGA",
+    "gridWidth": 8,
+    "gridHeight": 9,
+    "maxBudget": 740,
+    "starThreshold2": 59,
+    "starThreshold3": 82,
+    "allowedMaterials": [
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_carga",
+    "goals": [
+      {
+        "type": "RESISTIR_CARGA_LATERAL",
+        "value": 1
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 30
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": [
+      {
+        "x": 4,
+        "y": 8,
+        "magnitude": 36,
+        "isLateral": true
+      }
+    ]
+  },
+  {
+    "id": "c30_carga",
+    "orderInChapter": 6,
+    "worldChapter": 4,
+    "title": "Viento y Altura",
+    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "category": "CARGA",
+    "gridWidth": 8,
+    "gridHeight": 10,
+    "maxBudget": 800,
+    "starThreshold2": 60,
+    "starThreshold3": 83,
+    "allowedMaterials": [
+      "MADERA",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_carga",
+    "goals": [
+      {
+        "type": "RESISTIR_CARGA_LATERAL",
+        "value": 1
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 35
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": [
+      {
+        "x": 4,
+        "y": 9,
+        "magnitude": 40,
+        "isLateral": true
+      }
+    ]
+  },
+  {
+    "id": "c31_carga",
+    "orderInChapter": 7,
+    "worldChapter": 4,
+    "title": "Tormenta del Taller",
+    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "category": "CARGA",
+    "gridWidth": 9,
+    "gridHeight": 10,
+    "maxBudget": 860,
+    "starThreshold2": 61,
+    "starThreshold3": 84,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_carga",
+    "goals": [
+      {
+        "type": "RESISTIR_CARGA_LATERAL",
+        "value": 1
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 35
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": [
+      {
+        "x": 4,
+        "y": 9,
+        "magnitude": 44,
+        "isLateral": true
+      }
+    ]
+  },
+  {
+    "id": "c32_carga",
+    "orderInChapter": 8,
+    "worldChapter": 4,
+    "title": "Huracán Junior",
+    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "category": "CARGA",
+    "gridWidth": 9,
+    "gridHeight": 11,
+    "maxBudget": 920,
+    "starThreshold2": 62,
+    "starThreshold3": 85,
+    "allowedMaterials": [
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_carga",
+    "goals": [
+      {
+        "type": "RESISTIR_CARGA_LATERAL",
+        "value": 1
+      },
+      {
+        "type": "TRIANGULACION_MINIMA",
+        "value": 40
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": [
+      {
+        "x": 4,
+        "y": 10,
+        "magnitude": 48,
+        "isLateral": true
+      }
+    ]
+  },
+  {
+    "id": "c33_reto",
+    "orderInChapter": 1,
+    "worldChapter": 5,
+    "title": "Reto Combinado I",
+    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "category": "RETO",
+    "gridWidth": 6,
+    "gridHeight": 6,
+    "maxBudget": 500,
+    "starThreshold2": 55,
+    "starThreshold3": 78,
+    "allowedMaterials": [
+      "MADERA"
+    ],
+    "iconRes": "ic_challenge_reto",
+    "goals": [
+      {
+        "type": "ESTABILIDAD_MINIMA",
+        "value": 55
+      },
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 300
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c34_reto",
+    "orderInChapter": 2,
+    "worldChapter": 5,
+    "title": "Reto Combinado II",
+    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "category": "RETO",
+    "gridWidth": 6,
+    "gridHeight": 8,
+    "maxBudget": 560,
+    "starThreshold2": 56,
+    "starThreshold3": 79,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_reto",
+    "goals": [
+      {
+        "type": "ESTABILIDAD_MINIMA",
+        "value": 60
+      },
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 350
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 5,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c35_reto",
+    "orderInChapter": 3,
+    "worldChapter": 5,
+    "title": "Desafío de Nova",
+    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "category": "RETO",
+    "gridWidth": 7,
+    "gridHeight": 8,
+    "maxBudget": 620,
+    "starThreshold2": 57,
+    "starThreshold3": 80,
+    "allowedMaterials": [
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_reto",
+    "goals": [
+      {
+        "type": "ESTABILIDAD_MINIMA",
+        "value": 60
+      },
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 400
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c36_reto",
+    "orderInChapter": 4,
+    "worldChapter": 5,
+    "title": "Reto del Ingeniero",
+    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "category": "RETO",
+    "gridWidth": 7,
+    "gridHeight": 9,
+    "maxBudget": 680,
+    "starThreshold2": 58,
+    "starThreshold3": 81,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_reto",
+    "goals": [
+      {
+        "type": "ESTABILIDAD_MINIMA",
+        "value": 65
+      },
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 450
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 6,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c37_reto",
+    "orderInChapter": 5,
+    "worldChapter": 5,
+    "title": "Gran Desafío",
+    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "category": "RETO",
+    "gridWidth": 8,
+    "gridHeight": 9,
+    "maxBudget": 740,
+    "starThreshold2": 59,
+    "starThreshold3": 82,
+    "allowedMaterials": [
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_reto",
+    "goals": [
+      {
+        "type": "ESTABILIDAD_MINIMA",
+        "value": 65
+      },
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 500
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c38_reto",
+    "orderInChapter": 6,
+    "worldChapter": 5,
+    "title": "Reto Final de Capítulo",
+    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "category": "RETO",
+    "gridWidth": 8,
+    "gridHeight": 10,
+    "maxBudget": 800,
+    "starThreshold2": 60,
+    "starThreshold3": 83,
+    "allowedMaterials": [
+      "MADERA",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_reto",
+    "goals": [
+      {
+        "type": "ESTABILIDAD_MINIMA",
+        "value": 70
+      },
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 550
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 7,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c39_reto",
+    "orderInChapter": 7,
+    "worldChapter": 5,
+    "title": "Desafío Presupuestario",
+    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "category": "RETO",
+    "gridWidth": 9,
+    "gridHeight": 10,
+    "maxBudget": 860,
+    "starThreshold2": 61,
+    "starThreshold3": 84,
+    "allowedMaterials": [
+      "MADERA",
+      "ACERO",
+      "CONCRETO"
+    ],
+    "iconRes": "ic_challenge_reto",
+    "goals": [
+      {
+        "type": "ESTABILIDAD_MINIMA",
+        "value": 70
+      },
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 600
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  },
+  {
+    "id": "c40_reto",
+    "orderInChapter": 8,
+    "worldChapter": 5,
+    "title": "El Gran Proyecto",
+    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "category": "RETO",
+    "gridWidth": 9,
+    "gridHeight": 11,
+    "maxBudget": 920,
+    "starThreshold2": 62,
+    "starThreshold3": 85,
+    "allowedMaterials": [
+      "ACERO"
+    ],
+    "iconRes": "ic_challenge_reto",
+    "goals": [
+      {
+        "type": "ESTABILIDAD_MINIMA",
+        "value": 75
+      },
+      {
+        "type": "PRESUPUESTO_MAXIMO",
+        "value": 650
+      }
+    ],
+    "presetSupports": [
+      {
+        "x": 0,
+        "y": 0,
+        "supportType": "FIJO"
+      },
+      {
+        "x": 8,
+        "y": 0,
+        "supportType": "FIJO"
+      }
+    ],
+    "presetLoads": []
+  }
+]

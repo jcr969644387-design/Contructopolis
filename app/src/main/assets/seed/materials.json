@@ -1,0 +1,32 @@
+[
+  {
+    "id": "MADERA",
+    "displayName": "Madera de Andamio",
+    "colorHex": "#C68B4A",
+    "description": "Ligera y barata, ideal para empezar. Se dobla si la pieza es muy larga.",
+    "strength": 40.0,
+    "weight": 3.0,
+    "cost": 5,
+    "iconRes": "ic_material_madera"
+  },
+  {
+    "id": "ACERO",
+    "displayName": "Viga de Acero Nova",
+    "colorHex": "#5B7C99",
+    "description": "Fuerte y confiable, el favorito de las torres altas. Cuesta más que la madera.",
+    "strength": 90.0,
+    "weight": 8.0,
+    "cost": 12,
+    "iconRes": "ic_material_acero"
+  },
+  {
+    "id": "CONCRETO",
+    "displayName": "Bloque de Concreto",
+    "colorHex": "#8D8B85",
+    "description": "Pesado y resistente a cargas grandes, perfecto para columnas cortas.",
+    "strength": 70.0,
+    "weight": 15.0,
+    "cost": 8,
+    "iconRes": "ic_material_concreto"
+  }
+]

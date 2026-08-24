@@ -1,0 +1,72 @@
+[
+  {
+    "id": "PRIMER_LADRILLO",
+    "title": "Primer Ladrillo",
+    "tier": 1,
+    "iconRes": "ic_badge_primer_ladrillo",
+    "description": "Completaste tu primer reto en el Taller. ¡El comienzo de una gran obra!"
+  },
+  {
+    "id": "MAESTRA_DEL_ACERO",
+    "title": "Maestra del Acero",
+    "tier": 2,
+    "iconRes": "ic_badge_maestra_acero",
+    "description": "Aprobaste 5 retos construyendo solo con Viga de Acero Nova."
+  },
+  {
+    "id": "ARQUITECTA_DE_MADERA",
+    "title": "Arquitecta de Madera",
+    "tier": 2,
+    "iconRes": "ic_badge_arquitecta_madera",
+    "description": "Aprobaste 5 retos construyendo solo con Madera de Andamio."
+  },
+  {
+    "id": "TORRE_AL_CIELO",
+    "title": "Torre al Cielo",
+    "tier": 2,
+    "iconRes": "ic_badge_torre_cielo",
+    "description": "Construiste una estructura de 20 metros o más de altura."
+  },
+  {
+    "id": "TRIANGULACION_PERFECTA",
+    "title": "Triangulación Perfecta",
+    "tier": 2,
+    "iconRes": "ic_badge_triangulacion",
+    "description": "Lograste que la mitad o más de tus piezas fueran diagonales de refuerzo."
+  },
+  {
+    "id": "INGENIERA_AHORRADORA",
+    "title": "Ingeniera Ahorradora",
+    "tier": 2,
+    "iconRes": "ic_badge_ahorradora",
+    "description": "Aprobaste un reto gastando la mitad o menos del presupuesto disponible."
+  },
+  {
+    "id": "RESISTENTE_AL_VIENTO",
+    "title": "Resistente al Viento",
+    "tier": 3,
+    "iconRes": "ic_badge_viento",
+    "description": "Superaste 3 retos que incluían cargas laterales de viento."
+  },
+  {
+    "id": "CAPITULO_UNO_COMPLETO",
+    "title": "Cimientos Dominados",
+    "tier": 3,
+    "iconRes": "ic_badge_capitulo1",
+    "description": "Completaste todos los retos del capítulo Cimientos."
+  },
+  {
+    "id": "MAESTRA_CONSTRUCTORA",
+    "title": "Maestra Constructora",
+    "tier": 4,
+    "iconRes": "ic_badge_maestra_constructora",
+    "description": "Completaste 20 retos en total. ¡Eres toda una ingeniera junior!"
+  },
+  {
+    "id": "PERFECCIONISTA",
+    "title": "Perfeccionista",
+    "tier": 4,
+    "iconRes": "ic_badge_perfeccionista",
+    "description": "Conseguiste 3 estrellas en 10 retos distintos."
+  }
+]

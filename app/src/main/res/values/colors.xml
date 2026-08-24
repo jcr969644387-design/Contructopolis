@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="crane_orange">#FFFF6B1A</color>
+    <color name="steel_blue">#FF3D5A73</color>
+    <color name="blueprint_navy">#FF1B2A38</color>
+    <color name="warning_yellow">#FFFFC93C</color>
+    <color name="off_white">#FFF6F3EC</color>
+    <color name="ink_dark">#FF232323</color>
+</resources>

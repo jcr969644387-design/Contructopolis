@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Tema base nativo de Android, usado antes de que Compose tome el control
+        (ventana, splash del sistema, status bar). El look real de la app se
+        define con Material 3 + ConstructopolisTheme en Kotlin/Compose.
+    -->
+    <style name="Theme.Constructopolis" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/blueprint_navy</item>
+        <item name="android:navigationBarColor">@color/blueprint_navy</item>
+        <item name="android:windowBackground">@color/off_white</item>
+    </style>
+</resources>
