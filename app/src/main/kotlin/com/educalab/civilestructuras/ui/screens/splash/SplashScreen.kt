@@ -53,4 +53,4 @@ private fun Modifier.graphicsLayerScale(scale: Float): Modifier = this.then(
 )
 
 private fun Modifier.graphicsLayer(scaleX: Float, scaleY: Float): Modifier =
-    androidx.compose.ui.draw.scale(scaleX = scaleX, scaleY = scaleY)
+    this.scale(scaleX = scaleX, scaleY = scaleY)

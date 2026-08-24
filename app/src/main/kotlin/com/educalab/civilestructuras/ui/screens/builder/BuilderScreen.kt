@@ -155,9 +155,9 @@ private fun BuilderGridCanvas(
                 val demand = demandByMember[member.id]
                 val color = colorForDemand(demand?.state)
                 val strokeWidth = when (member.role) {
-                    MemberRole.COLUMNA -> cellPx.toPx() * 0.16f
-                    MemberRole.VIGA -> cellPx.toPx() * 0.12f
-                    MemberRole.DIAGONAL -> cellPx.toPx() * 0.09f
+                    MemberRole.COLUMNA -> cellPx * 0.16f
+                    MemberRole.VIGA -> cellPx * 0.12f
+                    MemberRole.DIAGONAL -> cellPx * 0.09f
                 }
                 drawLine(color, toOffset(a.position), toOffset(b.position), strokeWidth = strokeWidth)
             }
@@ -166,10 +166,10 @@ private fun BuilderGridCanvas(
             design.loads.forEach { load ->
                 val node = design.nodeById(load.nodeId) ?: return@forEach
                 val center = toOffset(node.position)
-                val len = cellPx.toPx() * 0.55f
+                val len = cellPx * 0.55f
                 val end = if (load.isLateral) Offset(center.x + len, center.y) else Offset(center.x, center.y + len)
-                drawLine(ConstructoColors.WarningYellow, center, end, strokeWidth = cellPx.toPx() * 0.06f)
-                drawCircle(ConstructoColors.WarningYellow, radius = cellPx.toPx() * 0.08f, center = end)
+                drawLine(ConstructoColors.WarningYellow, center, end, strokeWidth = cellPx * 0.06f)
+                drawCircle(ConstructoColors.WarningYellow, radius = cellPx * 0.08f, center = end)
             }
 
             // Nodos
@@ -181,11 +181,11 @@ private fun BuilderGridCanvas(
                     node.support != SupportType.NINGUNO -> ConstructoColors.ConcreteGray
                     else -> ConstructoColors.OffWhite
                 }
-                drawCircle(nodeColor, radius = cellPx.toPx() * 0.16f, center = center)
-                drawCircle(ConstructoColors.InkDark, radius = cellPx.toPx() * 0.16f, center = center, style = Stroke(width = 2f))
+                drawCircle(nodeColor, radius = cellPx * 0.16f, center = center)
+                drawCircle(ConstructoColors.InkDark, radius = cellPx * 0.16f, center = center, style = Stroke(width = 2f))
                 if (node.support != SupportType.NINGUNO) {
                     // Símbolo de apoyo: triángulo simple bajo el nodo
-                    val h = cellPx.toPx() * 0.18f
+                    val h = cellPx * 0.18f
                     drawLine(ConstructoColors.SteelBlue, Offset(center.x - h, center.y + h), Offset(center.x + h, center.y + h), strokeWidth = 4f)
                 }
             }
