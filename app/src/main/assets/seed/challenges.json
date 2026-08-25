@@ -313,7 +313,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 6
+        "value": 4
       },
       {
         "type": "PESO_MAXIMO",
@@ -354,7 +354,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 8
+        "value": 6
       },
       {
         "type": "PESO_MAXIMO",
@@ -394,7 +394,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 8
+        "value": 6
       },
       {
         "type": "PESO_MAXIMO",
@@ -436,7 +436,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 10
+        "value": 7
       },
       {
         "type": "PESO_MAXIMO",
@@ -477,7 +477,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 10
+        "value": 7
       },
       {
         "type": "PESO_MAXIMO",
@@ -518,7 +518,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 12
+        "value": 8
       },
       {
         "type": "PESO_MAXIMO",
@@ -560,7 +560,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 12
+        "value": 8
       },
       {
         "type": "PESO_MAXIMO",
@@ -600,7 +600,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 14
+        "value": 9
       },
       {
         "type": "PESO_MAXIMO",
@@ -640,7 +640,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 10
+        "value": 4
       },
       {
         "type": "TRIANGULACION_MINIMA",
@@ -681,7 +681,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 12
+        "value": 6
       },
       {
         "type": "TRIANGULACION_MINIMA",
@@ -721,7 +721,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 14
+        "value": 6
       },
       {
         "type": "TRIANGULACION_MINIMA",
@@ -763,7 +763,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 16
+        "value": 7
       },
       {
         "type": "TRIANGULACION_MINIMA",
@@ -804,7 +804,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 18
+        "value": 7
       },
       {
         "type": "TRIANGULACION_MINIMA",
@@ -845,7 +845,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 20
+        "value": 8
       },
       {
         "type": "TRIANGULACION_MINIMA",
@@ -887,7 +887,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 22
+        "value": 8
       },
       {
         "type": "TRIANGULACION_MINIMA",
@@ -927,7 +927,7 @@
     "goals": [
       {
         "type": "ALTURA_MINIMA",
-        "value": 24
+        "value": 9
       },
       {
         "type": "TRIANGULACION_MINIMA",

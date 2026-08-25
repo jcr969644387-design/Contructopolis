@@ -222,7 +222,7 @@ private fun BuilderGridCanvas(
                 val a = design.nodeById(member.nodeAId) ?: return@forEach
                 val b = design.nodeById(member.nodeBId) ?: return@forEach
                 val demand = demandByMember[member.id]
-                val color = colorForDemand(demand?.state)
+                val color = demand?.let { colorForDemand(it.state) } ?: colorForMaterial(member.material)
                 val strokeWidth = when (member.role) {
                     MemberRole.COLUMNA -> cellPx * 0.16f
                     MemberRole.VIGA -> cellPx * 0.12f
@@ -277,13 +277,19 @@ private fun RoleMismatchBanner(message: String, modifier: Modifier = Modifier) {
     }
 }
 
-private fun colorForDemand(state: MemberDemandState?): Color = when (state) {
+private fun colorForDemand(state: MemberDemandState): Color = when (state) {
     MemberDemandState.SIN_CARGA -> ConstructoColors.DemandNone
     MemberDemandState.BAJA -> ConstructoColors.DemandLow
     MemberDemandState.MEDIA -> ConstructoColors.DemandMedium
     MemberDemandState.ALTA -> ConstructoColors.DemandHigh
     MemberDemandState.FALLO -> ConstructoColors.DemandFail
-    null -> ConstructoColors.SteelBlueLight
+}
+
+/** Antes de simular, cada pieza se pinta según su material para que madera/acero/concreto se distingan a simple vista. */
+private fun colorForMaterial(material: MaterialType): Color = when (material) {
+    MaterialType.MADERA -> ConstructoColors.WoodBrown
+    MaterialType.ACERO -> ConstructoColors.SteelBlueLight
+    MaterialType.CONCRETO -> ConstructoColors.ConcreteGray
 }
 
 @Composable
