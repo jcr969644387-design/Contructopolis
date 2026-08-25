@@ -227,7 +227,6 @@ fun AvatarCircle(avatarId: Int, size: androidx.compose.ui.unit.Dp, selected: Boo
     ) {
         EngineerAvatarCanvas(
             avatarId = avatarId,
-            helmetAccent = helmetColor,
             modifier = Modifier.fillMaxSize(0.86f)
         )
     }

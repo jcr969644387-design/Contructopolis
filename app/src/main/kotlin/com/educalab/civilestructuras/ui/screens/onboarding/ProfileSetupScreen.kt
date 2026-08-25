@@ -58,7 +58,7 @@ fun ProfileSetupScreen(onContinue: (alias: String, avatarId: Int) -> Unit) {
 
                 Text("Elige tu avatar", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.height(8.dp))
-                LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                LazyRow(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     items((0 until UserProfileEntity.AVATAR_COUNT).toList()) { id ->
                         Box(
                             modifier = Modifier

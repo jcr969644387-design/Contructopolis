@@ -52,6 +52,17 @@ class ChallengeRepository(
         return details.toDomainModel()
     }
 
+    /** Id del siguiente reto del mismo capítulo (por orden), o null si es el último. */
+    suspend fun getNextChallengeId(currentChallengeId: String): String? {
+        val current = challengeDao.getWithDetails(currentChallengeId)?.challenge ?: return null
+        val chapterChallenges = challengeDao.getChapterWithDetails(current.worldChapter)
+            .map { it.challenge }
+            .sortedBy { it.orderInChapter }
+        val currentIndex = chapterChallenges.indexOfFirst { it.id == currentChallengeId }
+        if (currentIndex == -1 || currentIndex == chapterChallenges.lastIndex) return null
+        return chapterChallenges[currentIndex + 1].id
+    }
+
     suspend fun overallProgressPercent(): Int {
         val total = challengeDao.count()
         val completed = progressDao.completedCount()

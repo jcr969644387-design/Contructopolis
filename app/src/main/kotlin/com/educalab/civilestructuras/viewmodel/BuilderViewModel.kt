@@ -18,13 +18,14 @@ data class BuilderUiState(
     val challenge: StructureChallengeModel? = null,
     val design: StructureDesign = StructureDesign("", emptyList(), emptyList(), emptyList()),
     val selectedTool: BuilderTool = BuilderTool.NODO,
-    val selectedMaterial: MaterialType = MaterialType.MADERA,
+    val selectedMaterial: MaterialType? = null,
     val selectedRole: MemberRole = MemberRole.VIGA,
     val pendingMemberStartNodeId: String? = null,
     val lastOutcome: SimulationOutcome? = null,
     val savedNotice: Boolean = false,
     val newBadges: Set<BadgeId> = emptySet(),
-    val roleMismatchMessage: String? = null
+    val roleMismatchMessage: String? = null,
+    val nextChallengeId: String? = null
 )
 
 class BuilderViewModel(private val container: AppContainer, private val challengeId: String) : ViewModel() {
@@ -59,6 +60,8 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
     }
 
     fun selectMaterial(material: MaterialType) {
+        val allowed = _uiState.value.challenge?.allowedMaterials ?: return
+        if (material !in allowed) return
         _uiState.value = _uiState.value.copy(selectedMaterial = material)
     }
 
@@ -85,10 +88,17 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
                     container.feedbackPlayer.tap()
                 } else if (pendingId != tappedNode.id) {
                     val startNode = design.nodeById(pendingId)
-                    if (startNode != null && isValidOrientation(startNode.position, tappedNode.position, state.selectedRole)) {
+                    val material = state.selectedMaterial
+                    if (material == null) {
+                        _uiState.value = _uiState.value.copy(
+                            pendingMemberStartNodeId = null,
+                            roleMismatchMessage = "Elige un material (madera, acero o concreto) antes de construir una pieza."
+                        )
+                        container.feedbackPlayer.warn()
+                    } else if (startNode != null && isValidOrientation(startNode.position, tappedNode.position, state.selectedRole)) {
                         val newMember = StructureMemberModel(
                             id = "m${memberCounter++}", nodeAId = pendingId, nodeBId = tappedNode.id,
-                            material = state.selectedMaterial, role = state.selectedRole
+                            material = material, role = state.selectedRole
                         )
                         updateDesign(design.copy(members = design.members + newMember))
                         _uiState.value = _uiState.value.copy(pendingMemberStartNodeId = null)
@@ -168,7 +178,8 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
         val challenge = _uiState.value.challenge ?: return
         viewModelScope.launch {
             val outcome = container.simulationRepository.runSimulation(challenge, _uiState.value.design)
-            _uiState.value = _uiState.value.copy(lastOutcome = outcome, newBadges = outcome.newlyUnlockedBadges)
+            val nextId = if (outcome.result.passed) container.challengeRepository.getNextChallengeId(challenge.id) else null
+            _uiState.value = _uiState.value.copy(lastOutcome = outcome, newBadges = outcome.newlyUnlockedBadges, nextChallengeId = nextId)
             if (outcome.result.passed) {
                 container.feedbackPlayer.success()
             } else {
@@ -178,7 +189,7 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
     }
 
     private fun updateDesign(newDesign: StructureDesign) {
-        _uiState.value = _uiState.value.copy(design = newDesign, lastOutcome = null)
+        _uiState.value = _uiState.value.copy(design = newDesign, lastOutcome = null, nextChallengeId = null)
     }
 
     companion object {

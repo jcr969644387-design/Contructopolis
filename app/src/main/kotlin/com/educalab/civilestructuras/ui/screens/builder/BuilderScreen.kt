@@ -46,7 +46,7 @@ import com.educalab.civilestructuras.viewmodel.GenericViewModelFactory
 import kotlin.math.roundToInt
 
 @Composable
-fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Unit) {
+fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Unit, onNextChallenge: (String) -> Unit) {
     val viewModel: BuilderViewModel = viewModel(
         factory = GenericViewModelFactory({ BuilderViewModel(it, challengeId) }, container),
         key = "builder_$challengeId"
@@ -116,7 +116,12 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
             exit = fadeOut(tween(150)) + shrinkVertically(tween(150))
         ) {
             state.lastOutcome?.let { outcome ->
-                SimulationResultPanel(result = outcome.result, challenge = challenge)
+                SimulationResultPanel(
+                    result = outcome.result,
+                    challenge = challenge,
+                    nextChallengeId = state.nextChallengeId,
+                    onNextChallenge = onNextChallenge
+                )
             }
         }
     }
@@ -371,7 +376,7 @@ private fun colorForMaterial(material: MaterialType): Color = when (material) {
 @Composable
 private fun BuilderToolbar(
     selectedTool: BuilderTool,
-    selectedMaterial: MaterialType,
+    selectedMaterial: MaterialType?,
     selectedRole: MemberRole,
     allowedMaterials: List<MaterialType>,
     onSelectTool: (BuilderTool) -> Unit,
@@ -399,9 +404,23 @@ private fun BuilderToolbar(
         if (selectedTool == BuilderTool.MIEMBRO) {
             Spacer(Modifier.height(8.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                allowedMaterials.forEach { mat ->
-                    FilterChip(selected = mat == selectedMaterial, onClick = { onSelectMaterial(mat) }, label = { Text(mat.name) })
+                MaterialType.values().forEach { mat ->
+                    val allowed = mat in allowedMaterials
+                    FilterChip(
+                        selected = mat == selectedMaterial,
+                        enabled = allowed,
+                        onClick = { onSelectMaterial(mat) },
+                        label = { Text(if (allowed) mat.name else "${mat.name} (no permitido)") }
+                    )
                 }
+            }
+            if (selectedMaterial == null) {
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    "Elige un material antes de construir una pieza.",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = ConstructoColors.DangerRed
+                )
             }
             Spacer(Modifier.height(6.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -433,7 +452,12 @@ private fun ToolChip(label: String, icon: androidx.compose.ui.graphics.vector.Im
 }
 
 @Composable
-private fun SimulationResultPanel(result: SimulationResultModel, challenge: StructureChallengeModel) {
+private fun SimulationResultPanel(
+    result: SimulationResultModel,
+    challenge: StructureChallengeModel,
+    nextChallengeId: String?,
+    onNextChallenge: (String) -> Unit
+) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -457,10 +481,20 @@ private fun SimulationResultPanel(result: SimulationResultModel, challenge: Stru
         Spacer(Modifier.height(8.dp))
         Text(feedbackText(result), style = MaterialTheme.typography.bodyMedium)
         Spacer(Modifier.height(8.dp))
+        val weightGoal = challenge.goals.firstOrNull { it.type == ChallengeGoalType.PESO_MAXIMO }
         Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
             Text("Altura: ${result.maxHeight}m", style = MaterialTheme.typography.labelMedium)
             Text("Costo: ${result.totalCost}/${challenge.maxBudget}", style = MaterialTheme.typography.labelMedium)
             Text("Estabilidad: ${result.stabilityScore}%", style = MaterialTheme.typography.labelMedium)
+        }
+        if (weightGoal != null) {
+            Spacer(Modifier.height(4.dp))
+            val overweight = result.totalWeight.roundToInt() > weightGoal.value
+            Text(
+                "Peso: ${result.totalWeight.roundToInt()}/${weightGoal.value}",
+                style = MaterialTheme.typography.labelMedium,
+                color = if (overweight) ConstructoColors.DangerRed else MaterialTheme.colorScheme.onSurface
+            )
         }
         if (result.memberResults.any { it.state == MemberDemandState.FALLO || it.state == MemberDemandState.ALTA }) {
             Spacer(Modifier.height(10.dp))
@@ -469,6 +503,23 @@ private fun SimulationResultPanel(result: SimulationResultModel, challenge: Stru
                 result.memberResults.filter { it.state == MemberDemandState.FALLO || it.state == MemberDemandState.ALTA }
                     .take(4)
                     .forEach { DemandStateChip(it.state) }
+            }
+        }
+        if (result.passed) {
+            Spacer(Modifier.height(12.dp))
+            if (nextChallengeId != null) {
+                Button(onClick = { onNextChallenge(nextChallengeId) }, modifier = Modifier.fillMaxWidth()) {
+                    Text("Siguiente reto")
+                    Spacer(Modifier.width(6.dp))
+                    Icon(Icons.Filled.ArrowForward, contentDescription = null, modifier = Modifier.size(18.dp))
+                }
+            } else {
+                Text(
+                    "¡Completaste todos los retos de este capítulo!",
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = ConstructoColors.SuccessGreen
+                )
             }
         }
     }

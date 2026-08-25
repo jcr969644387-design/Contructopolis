@@ -181,7 +181,8 @@ private fun HomeHeader(alias: String, avatarId: Int, onProfileClick: () -> Unit)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
             Column(Modifier.weight(1f)) {
-                Text("¡Hola, Ingeniero $alias!", style = MaterialTheme.typography.headlineMedium, color = ConstructoColors.OffWhite, fontWeight = FontWeight.Bold)
+                val title = if (isGirlAvatar(avatarId)) "Ingeniera" else "Ingeniero"
+                Text("¡Hola, $title $alias!", style = MaterialTheme.typography.headlineMedium, color = ConstructoColors.OffWhite, fontWeight = FontWeight.Bold)
                 Text("Bienvenida de vuelta al Taller", style = MaterialTheme.typography.bodyMedium, color = ConstructoColors.WarningYellow)
             }
             Box(

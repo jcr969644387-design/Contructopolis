@@ -11,14 +11,6 @@ import androidx.compose.ui.unit.dp
 import com.educalab.civilestructuras.ui.theme.ConstructoColors
 import kotlin.math.min
 
-/** Oscurece un color un [amount] (0-1) manteniendo su alpha, para acentos como el ala del casco. */
-private fun darken(color: Color, amount: Float): Color = Color(
-    red = (color.red * (1f - amount)).coerceIn(0f, 1f),
-    green = (color.green * (1f - amount)).coerceIn(0f, 1f),
-    blue = (color.blue * (1f - amount)).coerceIn(0f, 1f),
-    alpha = color.alpha
-)
-
 /** Una de las 8 combinaciones de avatar (4 niño + 4 niña) que puede elegir el jugador. */
 private data class AvatarSpec(val skinTone: Color, val hairColor: Color, val isGirl: Boolean)
 
@@ -35,6 +27,9 @@ private val AVATAR_SPECS = listOf(
     AvatarSpec(Color(0xFFC68642), Color(0xFFB33A2E), isGirl = true)
 )
 
+/** true si el avatar [avatarId] es uno de los 4 modelos de niña (para elegir "Ingeniera" vs "Ingeniero"). */
+fun isGirlAvatar(avatarId: Int): Boolean = AVATAR_SPECS[avatarId.mod(AVATAR_SPECS.size)].isGirl
+
 /**
  * Retrato simple de un ingeniero/ingeniera junior con casco, para el
  * selector de avatar (8 combinaciones: 4 niño + 4 niña). Pensado para verse
@@ -43,7 +38,7 @@ private val AVATAR_SPECS = listOf(
  * se dibujan cara, cabello y facciones.
  */
 @Composable
-fun EngineerAvatarCanvas(avatarId: Int, helmetAccent: Color, modifier: Modifier = Modifier) {
+fun EngineerAvatarCanvas(avatarId: Int, modifier: Modifier = Modifier) {
     val spec = AVATAR_SPECS[avatarId.mod(AVATAR_SPECS.size)]
     Canvas(modifier = modifier) {
         val s = min(size.width, size.height)
@@ -70,11 +65,17 @@ fun EngineerAvatarCanvas(avatarId: Int, helmetAccent: Color, modifier: Modifier 
             topLeft = Offset(cx + s * 0.18f, cy - s * 0.20f), size = Size(s * 0.22f, s * 0.22f), style = Stroke(width = s * 0.05f)
         )
 
-        // Ala del casco, apoyada sobre la frente (más oscura que el fondo para que se note)
+        // Ala del casco: siempre blanca (con borde oscuro) para que resalte sobre cualquier color de fondo
         drawRect(
-            color = darken(helmetAccent, 0.25f),
+            color = Color.White,
             topLeft = Offset(cx - s * 0.38f, cy - s * 0.30f),
             size = Size(s * 0.76f, s * 0.09f)
+        )
+        drawRect(
+            color = ConstructoColors.InkDark,
+            topLeft = Offset(cx - s * 0.38f, cy - s * 0.30f),
+            size = Size(s * 0.76f, s * 0.09f),
+            style = Stroke(width = s * 0.018f)
         )
 
         // Ojos

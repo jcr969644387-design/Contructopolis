@@ -90,7 +90,16 @@ fun ConstructopolisNavGraph(container: AppContainer) {
             arguments = listOf(navArgument("challengeId") { type = androidx.navigation.NavType.StringType })
         ) { backStackEntry ->
             val challengeId = backStackEntry.arguments?.getString("challengeId") ?: return@composable
-            BuilderScreen(container = container, challengeId = challengeId, onBack = { navController.popBackStack() })
+            BuilderScreen(
+                container = container,
+                challengeId = challengeId,
+                onBack = { navController.popBackStack() },
+                onNextChallenge = { nextId ->
+                    navController.navigate(Routes.builder(nextId)) {
+                        popUpTo(Routes.builder(challengeId)) { inclusive = true }
+                    }
+                }
+            )
         }
     }
 }

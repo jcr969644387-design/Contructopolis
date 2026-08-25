@@ -272,7 +272,13 @@ object StructureEngine {
             val highDemandPenalty = if (memberResults.isNotEmpty()) {
                 (highDemandCount.toDouble() / memberResults.size) * 15.0
             } else 0.0
-            val lateralPenalty = if (hasLateralLoad && triangulation == 0.0) 25.0 else 0.0
+            // Penalización de triangulación: proporcional a qué tan lejos está el diseño de una
+            // cobertura "buena" (>= 30% de piezas diagonales), no un simple sí/no. Antes, con una
+            // sola diagonal ya se cancelaba toda la penalización sin importar cuántas piezas tenía
+            // la estructura, permitiendo diseños poco triangulados con estabilidad 100%.
+            val targetTriangulation = 0.3
+            val triangulationCoverage = (triangulation / targetTriangulation).coerceIn(0.0, 1.0)
+            val lateralPenalty = if (hasLateralLoad) (1.0 - triangulationCoverage) * 25.0 else 0.0
             stabilityScore = (100.0 - failedPenalty - highDemandPenalty - lateralPenalty).roundToInt()
         }
         stabilityScore = stabilityScore.coerceIn(0, 100)
