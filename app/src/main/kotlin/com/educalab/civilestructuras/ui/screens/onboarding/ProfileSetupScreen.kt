@@ -60,14 +60,19 @@ fun ProfileSetupScreen(onContinue: (alias: String, avatarId: Int) -> Unit) {
                 OutlinedTextField(
                     value = alias,
                     onValueChange = { if (it.length <= 18) alias = it },
-                    placeholder = { Text("Ingeniera Junior") },
+                    placeholder = { Text("Escribe tu alias") },
                     singleLine = true,
+                    isError = alias.isBlank(),
+                    supportingText = {
+                        if (alias.isBlank()) Text("Escribe un alias para continuar. No uses tu nombre real.")
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(Modifier.height(32.dp))
                 Button(
-                    onClick = { onContinue(alias.ifBlank { "Ingeniera Junior" }, avatarId) },
+                    onClick = { onContinue(alias.trim(), avatarId) },
+                    enabled = alias.isNotBlank(),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("¡Empezar!")

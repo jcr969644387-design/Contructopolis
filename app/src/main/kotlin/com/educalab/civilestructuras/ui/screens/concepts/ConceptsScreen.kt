@@ -87,11 +87,14 @@ private val CONCEPTS = listOf(
 )
 
 @Composable
-fun ConceptsScreen(container: AppContainer) {
+fun ConceptsScreen(container: AppContainer, onAllConceptsConfirmed: () -> Unit) {
     val viewModel: ProfileViewModel = viewModel(factory = GenericViewModelFactory({ ProfileViewModel(it) }, container))
     var confirmed by remember { mutableStateOf(setOf<String>()) }
     LaunchedEffect(confirmed) {
-        if (confirmed.size >= CONCEPTS.size) viewModel.markConceptsViewed()
+        if (confirmed.size >= CONCEPTS.size) {
+            viewModel.markConceptsViewed()
+            onAllConceptsConfirmed()
+        }
     }
     LazyColumn(
         modifier = Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding(),
@@ -101,7 +104,7 @@ fun ConceptsScreen(container: AppContainer) {
         item {
             Text("Conceptos del Taller", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             Text(
-                "Toca cada tarjeta, léela y marca \"Entendido\". Cuando confirmes las ${CONCEPTS.size}, desbloqueas Vigas.",
+                "Toca cada tarjeta, léela y marca \"Entendido\". Cuando confirmes las ${CONCEPTS.size}, pasarás automáticamente a Materiales.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
             )

@@ -41,10 +41,22 @@ fun MaterialsScreen(container: AppContainer) {
     val profileViewModel: ProfileViewModel = viewModel(factory = GenericViewModelFactory({ ProfileViewModel(it) }, container))
     val materials by viewModel.materials.collectAsState()
     var confirmed by remember { mutableStateOf(setOf<String>()) }
+    var showReadyDialog by remember { mutableStateOf(false) }
     LaunchedEffect(confirmed, materials) {
         if (materials.isNotEmpty() && confirmed.containsAll(materials.map { it.id })) {
             profileViewModel.markMaterialsViewed()
+            showReadyDialog = true
         }
+    }
+
+    if (showReadyDialog) {
+        AlertDialog(
+            onDismissRequest = { showReadyDialog = false },
+            icon = { Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = ConstructoColors.SuccessGreen) },
+            title = { Text("¡Ya puedes empezar a construir!") },
+            text = { Text("Leíste los conceptos y los 3 materiales. Vigas ya está desbloqueado: vuelve a Inicio y empieza a construir.") },
+            confirmButton = { TextButton(onClick = { showReadyDialog = false }) { Text("¡Vamos!") } }
+        )
     }
 
     LazyColumn(
