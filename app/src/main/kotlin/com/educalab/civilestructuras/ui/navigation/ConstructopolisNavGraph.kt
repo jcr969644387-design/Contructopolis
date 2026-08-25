@@ -1,6 +1,7 @@
 package com.educalab.civilestructuras.ui.navigation
 
 import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -29,7 +30,14 @@ import kotlinx.coroutines.launch
 @Composable
 fun ConstructopolisNavGraph(container: AppContainer) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Routes.SPLASH) {
+    NavHost(
+        navController = navController,
+        startDestination = Routes.SPLASH,
+        enterTransition = { fadeIn(tween(260)) + slideInHorizontally(tween(260)) { it / 8 } },
+        exitTransition = { fadeOut(tween(200)) },
+        popEnterTransition = { fadeIn(tween(260)) },
+        popExitTransition = { fadeOut(tween(200)) + slideOutHorizontally(tween(200)) { it / 8 } }
+    ) {
         composable(Routes.SPLASH) {
             var ready by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
             SplashScreen(onFinished = { ready = true })

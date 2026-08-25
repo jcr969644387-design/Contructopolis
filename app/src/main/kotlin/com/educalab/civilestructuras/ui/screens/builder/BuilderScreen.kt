@@ -1,5 +1,16 @@
 package com.educalab.civilestructuras.ui.screens.builder
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -16,6 +27,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -77,6 +89,14 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
                     viewModel.dismissRoleMismatch()
                 }
             }
+            AnimatedVisibility(
+                visible = state.savedNotice,
+                modifier = Modifier.align(Alignment.TopCenter).padding(12.dp),
+                enter = fadeIn(tween(200)) + slideInVertically(tween(200)) { -it / 2 },
+                exit = fadeOut(tween(200)) + slideOutVertically(tween(200)) { -it / 2 }
+            ) {
+                SavedNoticeBanner()
+            }
         }
         BuilderToolbar(
             selectedTool = state.selectedTool,
@@ -90,8 +110,14 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
             onSimulate = viewModel::simulate,
             onClearAll = { showClearAllConfirm = true }
         )
-        state.lastOutcome?.let { outcome ->
-            SimulationResultPanel(result = outcome.result, challenge = challenge)
+        AnimatedVisibility(
+            visible = state.lastOutcome != null,
+            enter = fadeIn(tween(280)) + expandVertically(tween(280)),
+            exit = fadeOut(tween(150)) + shrinkVertically(tween(150))
+        ) {
+            state.lastOutcome?.let { outcome ->
+                SimulationResultPanel(result = outcome.result, challenge = challenge)
+            }
         }
     }
 
@@ -122,11 +148,25 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
         AlertDialog(
             onDismissRequest = viewModel::dismissNewBadges,
             confirmButton = { TextButton(onClick = viewModel::dismissNewBadges) { Text("¡Genial!") } },
-            icon = { Icon(Icons.Filled.WorkspacePremium, contentDescription = null, tint = ConstructoColors.CraneOrange) },
+            icon = { BouncyBadgeIcon() },
             title = { Text("¡Nueva insignia desbloqueada!") },
             text = { Text(state.newBadges.joinToString(", ") { it.name.replace('_', ' ') }) }
         )
     }
+}
+
+@Composable
+private fun BouncyBadgeIcon() {
+    val scale = remember { Animatable(0f) }
+    LaunchedEffect(Unit) {
+        scale.animateTo(1f, animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessLow))
+    }
+    Icon(
+        Icons.Filled.WorkspacePremium,
+        contentDescription = null,
+        tint = ConstructoColors.CraneOrange,
+        modifier = Modifier.scale(scale.value)
+    )
 }
 
 @Composable
@@ -196,25 +236,41 @@ private fun BuilderGridCanvas(
     onCellTap: (Int, Int) -> Unit
 ) {
     BoxWithConstraints(Modifier.fillMaxSize().padding(12.dp)) {
-        val cellSize = minOf(maxWidth / gridWidth, maxHeight / gridHeight)
+        val rulerWidth = 26.dp
+        val cellSize = minOf((maxWidth - rulerWidth) / gridWidth, maxHeight / gridHeight)
         val gridPxWidth = cellSize * gridWidth
         val gridPxHeight = cellSize * gridHeight
 
-        Canvas(
-            modifier = Modifier
-                .width(gridPxWidth)
-                .height(gridPxHeight)
-                .align(Alignment.BottomCenter)
-                .pointerInput(gridWidth, gridHeight) {
-                    detectTapGestures { offset ->
-                        val cellPx = size.width / gridWidth
-                        val gx = (offset.x / cellPx).toInt().coerceIn(0, gridWidth - 1)
-                        val gy = gridHeight - 1 - (offset.y / cellPx).toInt().coerceIn(0, gridHeight - 1)
-                        onCellTap(gx, gy)
+        Row(
+            modifier = Modifier.align(Alignment.BottomCenter),
+            verticalAlignment = Alignment.Bottom
+        ) {
+            Column(Modifier.width(rulerWidth).height(gridPxHeight)) {
+                for (row in gridHeight - 1 downTo 0) {
+                    Box(Modifier.height(cellSize).fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
+                        Text(
+                            "${row}m",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Color.White.copy(alpha = 0.55f)
+                        )
                     }
                 }
-        ) {
-            val cellPx = size.width / gridWidth
+            }
+            Spacer(Modifier.width(4.dp))
+            Canvas(
+                modifier = Modifier
+                    .width(gridPxWidth)
+                    .height(gridPxHeight)
+                    .pointerInput(gridWidth, gridHeight) {
+                        detectTapGestures { offset ->
+                            val cellPx = size.width / gridWidth
+                            val gx = (offset.x / cellPx).toInt().coerceIn(0, gridWidth - 1)
+                            val gy = gridHeight - 1 - (offset.y / cellPx).toInt().coerceIn(0, gridHeight - 1)
+                            onCellTap(gx, gy)
+                        }
+                    }
+            ) {
+                val cellPx = size.width / gridWidth
             fun toOffset(pos: NodePosition): Offset = Offset(pos.x * cellPx + cellPx / 2, size.height - (pos.y * cellPx + cellPx / 2))
 
             // Cuadrícula de plano
@@ -262,6 +318,7 @@ private fun BuilderGridCanvas(
                     drawLine(ConstructoColors.SteelBlue, Offset(center.x - h, center.y + h), Offset(center.x + h, center.y + h), strokeWidth = 4f)
                 }
             }
+            }
         }
     }
 }
@@ -278,6 +335,21 @@ private fun RoleMismatchBanner(message: String, modifier: Modifier = Modifier) {
         Icon(Icons.Filled.Info, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
         Spacer(Modifier.width(8.dp))
         Text(message, style = MaterialTheme.typography.bodyMedium, color = Color.White)
+    }
+}
+
+@Composable
+private fun SavedNoticeBanner() {
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(10.dp))
+            .background(ConstructoColors.SuccessGreen.copy(alpha = 0.92f))
+            .padding(horizontal = 14.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
+        Spacer(Modifier.width(8.dp))
+        Text("Diseño guardado", style = MaterialTheme.typography.bodyMedium, color = Color.White)
     }
 }
 
@@ -380,7 +452,7 @@ private fun SimulationResultPanel(result: SimulationResultModel, challenge: Stru
                 style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold
             )
             Spacer(Modifier.weight(1f))
-            StarRow(stars = result.starsEarned)
+            StarRow(stars = result.starsEarned, animated = true)
         }
         Spacer(Modifier.height(8.dp))
         Text(feedbackText(result), style = MaterialTheme.typography.bodyMedium)

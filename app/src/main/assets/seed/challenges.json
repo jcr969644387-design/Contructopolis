@@ -4,7 +4,7 @@
     "orderInChapter": 1,
     "worldChapter": 1,
     "title": "Primer Puente",
-    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "briefing": "Un solo palo largo no es un puente: parte tu viga en al menos 2 tramos apoyados en un nodo intermedio.",
     "category": "VIGA",
     "gridWidth": 6,
     "gridHeight": 6,
@@ -16,6 +16,10 @@
     ],
     "iconRes": "ic_challenge_viga",
     "goals": [
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 2
+      },
       {
         "type": "PRESUPUESTO_MAXIMO",
         "value": 120
@@ -40,7 +44,7 @@
     "orderInChapter": 2,
     "worldChapter": 1,
     "title": "Pasarela del Taller",
-    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "briefing": "Combina madera y acero en distintos tramos de la pasarela para ahorrar sin perder resistencia.",
     "category": "VIGA",
     "gridWidth": 6,
     "gridHeight": 8,
@@ -53,6 +57,14 @@
     ],
     "iconRes": "ic_challenge_viga",
     "goals": [
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
+      },
       {
         "type": "PRESUPUESTO_MAXIMO",
         "value": 160
@@ -77,7 +89,7 @@
     "orderInChapter": 3,
     "worldChapter": 1,
     "title": "Balcón de Nova",
-    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "briefing": "El acero es caro: divide el balcón en al menos 3 tramos apoyados para no gastar de más.",
     "category": "VIGA",
     "gridWidth": 7,
     "gridHeight": 8,
@@ -89,6 +101,10 @@
     ],
     "iconRes": "ic_challenge_viga",
     "goals": [
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 3
+      },
       {
         "type": "PRESUPUESTO_MAXIMO",
         "value": 200
@@ -113,7 +129,7 @@
     "orderInChapter": 4,
     "worldChapter": 1,
     "title": "Puente de Andamios",
-    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "briefing": "Tienes tres materiales: combina al menos dos entre los tramos de este puente.",
     "category": "VIGA",
     "gridWidth": 7,
     "gridHeight": 9,
@@ -127,6 +143,14 @@
     ],
     "iconRes": "ic_challenge_viga",
     "goals": [
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
+      },
       {
         "type": "PRESUPUESTO_MAXIMO",
         "value": 260
@@ -151,7 +175,7 @@
     "orderInChapter": 5,
     "worldChapter": 1,
     "title": "Viga Maestra",
-    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "briefing": "Acero y concreto combinados en al menos 3 tramos: encuentra el reparto más económico.",
     "category": "VIGA",
     "gridWidth": 8,
     "gridHeight": 9,
@@ -164,6 +188,14 @@
     ],
     "iconRes": "ic_challenge_viga",
     "goals": [
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
+      },
       {
         "type": "PRESUPUESTO_MAXIMO",
         "value": 300
@@ -188,7 +220,7 @@
     "orderInChapter": 6,
     "worldChapter": 1,
     "title": "Pasarela Doble",
-    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "briefing": "Cuatro tramos, dos materiales: reparte madera y concreto donde cada uno rinde mejor.",
     "category": "VIGA",
     "gridWidth": 8,
     "gridHeight": 10,
@@ -201,6 +233,14 @@
     ],
     "iconRes": "ic_challenge_viga",
     "goals": [
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 4
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
+      },
       {
         "type": "PRESUPUESTO_MAXIMO",
         "value": 340
@@ -225,7 +265,7 @@
     "orderInChapter": 7,
     "worldChapter": 1,
     "title": "Puente del Río Datos",
-    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "briefing": "Un puente largo con los tres materiales disponibles: combina al menos dos en sus 4 tramos.",
     "category": "VIGA",
     "gridWidth": 9,
     "gridHeight": 10,
@@ -239,6 +279,14 @@
     ],
     "iconRes": "ic_challenge_viga",
     "goals": [
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 4
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
+      },
       {
         "type": "PRESUPUESTO_MAXIMO",
         "value": 380
@@ -263,7 +311,7 @@
     "orderInChapter": 8,
     "worldChapter": 1,
     "title": "Viga sin Miedo",
-    "briefing": "La Ingeniera Nova necesita que aprendas a conectar tus piezas al suelo antes de construir nada grande.",
+    "briefing": "El reto final de vigas: solo acero, 4 tramos y un presupuesto muy ajustado. Piensa antes de construir.",
     "category": "VIGA",
     "gridWidth": 9,
     "gridHeight": 11,
@@ -275,6 +323,10 @@
     ],
     "iconRes": "ic_challenge_viga",
     "goals": [
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 4
+      },
       {
         "type": "PRESUPUESTO_MAXIMO",
         "value": 420

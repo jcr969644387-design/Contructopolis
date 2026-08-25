@@ -1,10 +1,16 @@
 package com.educalab.civilestructuras.ui.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,16 +18,23 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.educalab.civilestructuras.domain.logic.ModuleState
 import com.educalab.civilestructuras.domain.model.MemberDemandState
 import com.educalab.civilestructuras.ui.theme.ConstructoColors
+import kotlinx.coroutines.delay
 
 /** Tarjeta ilustrada de un módulo/reto del mapa del Taller. Nunca solo texto: icono + estado + estrellas. */
 @Composable
@@ -37,10 +50,18 @@ fun ModuleCard(
     iconDrawableRes: Int? = null
 ) {
     val locked = state == ModuleState.BLOQUEADO
+    val interactionSource = remember { MutableInteractionSource() }
+    val pressed by interactionSource.collectIsPressedAsState()
+    val cardScale by animateFloatAsState(
+        targetValue = if (pressed) 0.97f else 1f,
+        animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessMedium),
+        label = "cardScale"
+    )
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clickable(enabled = !locked, onClick = onClick),
+            .graphicsLayer { scaleX = cardScale; scaleY = cardScale }
+            .clickable(enabled = !locked, interactionSource = interactionSource, indication = LocalIndication.current, onClick = onClick),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = if (locked) 0.dp else 3.dp)
     ) {
@@ -87,28 +108,46 @@ fun ModuleCard(
 
 @Composable
 fun ModuleStateBadge(state: ModuleState) {
-    val (label, color, icon) = when (state) {
+    val (label, targetColor, icon) = when (state) {
         ModuleState.BLOQUEADO -> Triple("Bloqueado", ConstructoColors.ConcreteGray, Icons.Filled.Lock)
         ModuleState.DISPONIBLE -> Triple("Nuevo", ConstructoColors.SteelBlue, Icons.Filled.PlayArrow)
         ModuleState.INICIADO -> Triple("En curso", ConstructoColors.WarningYellow, Icons.Filled.Build)
         ModuleState.COMPLETADO -> Triple("Hecho", ConstructoColors.SuccessGreen, Icons.Filled.Check)
         ModuleState.DOMINADO -> Triple("¡Dominado!", ConstructoColors.CraneOrange, Icons.Filled.Star)
     }
+    val color by animateColorAsState(targetValue = targetColor, animationSpec = tween(300), label = "badgeColor")
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Icon(icon, contentDescription = label, tint = color, modifier = Modifier.size(18.dp))
         Text(label, style = MaterialTheme.typography.labelMedium, color = color)
     }
 }
 
+/**
+ * Fila de 1 a 3 estrellas. Con [animated] = true, aparecen una por una con un
+ * pequeño rebote (usada al revelar el resultado justo después de "Probar").
+ */
 @Composable
-fun StarRow(stars: Int, size: androidx.compose.ui.unit.Dp = 20.dp) {
+fun StarRow(stars: Int, size: androidx.compose.ui.unit.Dp = 20.dp, animated: Boolean = false) {
     Row {
         repeat(3) { index ->
+            var appeared by remember { mutableStateOf(!animated) }
+            LaunchedEffect(stars, animated) {
+                if (animated) {
+                    appeared = false
+                    delay(120L * index)
+                    appeared = true
+                }
+            }
+            val scale by animateFloatAsState(
+                targetValue = if (appeared) 1f else 0f,
+                animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessLow),
+                label = "starPop"
+            )
             Icon(
                 imageVector = if (index < stars) Icons.Filled.Star else Icons.Filled.StarBorder,
                 contentDescription = null,
                 tint = if (index < stars) ConstructoColors.WarningYellow else ConstructoColors.ConcreteGray.copy(alpha = 0.5f),
-                modifier = Modifier.size(size)
+                modifier = Modifier.size(size).scale(if (animated) scale else 1f)
             )
         }
     }

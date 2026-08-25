@@ -1,5 +1,6 @@
 package com.educalab.civilestructuras.ui.screens.home
 
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -154,7 +155,19 @@ private fun NextChallengeBanner(title: String, chapterTitle: String, onClick: ()
             Modifier.padding(16.dp).fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(Icons.Filled.RocketLaunch, contentDescription = null, tint = ConstructoColors.CraneOrange, modifier = Modifier.size(36.dp))
+            val infiniteTransition = rememberInfiniteTransition(label = "rocketBob")
+            val rocketOffset by infiniteTransition.animateFloat(
+                initialValue = 0f,
+                targetValue = -6f,
+                animationSpec = infiniteRepeatable(tween(700, easing = FastOutSlowInEasing), RepeatMode.Reverse),
+                label = "rocketOffsetY"
+            )
+            Icon(
+                Icons.Filled.RocketLaunch,
+                contentDescription = null,
+                tint = ConstructoColors.CraneOrange,
+                modifier = Modifier.size(36.dp).offset(y = rocketOffset.dp)
+            )
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {
                 Text("Siguiente reto sugerido", style = MaterialTheme.typography.labelMedium, color = ConstructoColors.CraneOrangeDark)
