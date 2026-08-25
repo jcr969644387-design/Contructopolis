@@ -89,7 +89,7 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
                     viewModel.dismissRoleMismatch()
                 }
             }
-            AnimatedVisibility(
+            androidx.compose.animation.AnimatedVisibility(
                 visible = state.savedNotice,
                 modifier = Modifier.align(Alignment.TopCenter).padding(12.dp),
                 enter = fadeIn(tween(200)) + slideInVertically(tween(200)) { -it / 2 },
