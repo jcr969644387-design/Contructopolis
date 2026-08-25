@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.Scale
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -28,10 +29,13 @@ import com.educalab.civilestructuras.ui.theme.ConstructoColors
 import com.educalab.civilestructuras.util.IconRegistry
 import com.educalab.civilestructuras.viewmodel.GenericViewModelFactory
 import com.educalab.civilestructuras.viewmodel.MaterialsViewModel
+import com.educalab.civilestructuras.viewmodel.ProfileViewModel
 
 @Composable
 fun MaterialsScreen(container: AppContainer) {
     val viewModel: MaterialsViewModel = viewModel(factory = GenericViewModelFactory({ MaterialsViewModel(it) }, container))
+    val profileViewModel: ProfileViewModel = viewModel(factory = GenericViewModelFactory({ ProfileViewModel(it) }, container))
+    LaunchedEffect(Unit) { profileViewModel.markMaterialsViewed() }
     val materials by viewModel.materials.collectAsState()
 
     LazyColumn(

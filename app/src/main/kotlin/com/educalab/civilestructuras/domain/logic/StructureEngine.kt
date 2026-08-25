@@ -215,8 +215,24 @@ object StructureEngine {
     // SIMULACIÓN COMPLETA
     // ============================================================
 
+    /**
+     * true si todos los apoyos del reto están realmente incorporados a la
+     * estructura construida (tocados por al menos un miembro). Sin esto, un
+     * diseño podía "aprobar" apoyándose en un solo apoyo y dejando el resto
+     * sin usar: piezas colgando de un lado, no una estructura real cerrada
+     * entre sus puntos de anclaje (ej. una columna con vigas sueltas encima,
+     * sin llegar nunca al segundo apoyo).
+     */
+    fun allSupportsUsed(design: StructureDesign): Boolean {
+        val supportNodes = design.nodes.filter { it.support != SupportType.NINGUNO }
+        if (supportNodes.isEmpty()) return true
+        val used = usedNodeIds(design)
+        return supportNodes.all { it.id in used }
+    }
+
     fun simulate(design: StructureDesign, challenge: StructureChallengeModel): SimulationResultModel {
         val isConnected = isFullyConnected(design)
+        val allSupportsUsed = allSupportsUsed(design)
         val grounded = computeGroundedNodeIds(design)
         val distances = computeDistanceToSupport(design)
         val assignedLoads = distributeLoads(design, distances)
@@ -281,6 +297,7 @@ object StructureEngine {
         }
 
         val passed = isConnected &&
+            allSupportsUsed &&
             failedMemberIds.isEmpty() &&
             totalCost <= challenge.maxBudget &&
             unmetGoals.isEmpty()
@@ -294,6 +311,7 @@ object StructureEngine {
 
         val feedbackKey = when {
             !isConnected -> "feedback_no_conectado"
+            !allSupportsUsed -> "feedback_apoyo_sin_usar"
             failedMemberIds.isNotEmpty() -> "feedback_miembro_fallido"
             totalCost > challenge.maxBudget -> "feedback_presupuesto_excedido"
             unmetGoals.contains(ChallengeGoalType.ALTURA_MINIMA) -> "feedback_altura_insuficiente"

@@ -15,6 +15,8 @@ data class UserProfileEntity(
     val soundEnabled: Boolean = true,
     val hapticEnabled: Boolean = true,
     val onboardingCompleted: Boolean = false,
+    val conceptsViewed: Boolean = false,
+    val materialsViewed: Boolean = false,
     val createdAt: Long
 ) {
     companion object {

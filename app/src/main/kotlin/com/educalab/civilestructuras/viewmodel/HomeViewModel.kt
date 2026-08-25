@@ -8,6 +8,7 @@ import com.educalab.civilestructuras.domain.logic.ModuleState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 data class HomeUiState(
@@ -16,7 +17,11 @@ data class HomeUiState(
     val overallProgressPercent: Int = 0,
     val chaptersInOrder: List<Int> = emptyList(),
     val summariesByChapter: Map<Int, List<ChallengeSummary>> = emptyMap(),
-    val nextChallenge: ChallengeSummary? = null
+    val nextChallenge: ChallengeSummary? = null,
+    val conceptsViewed: Boolean = false,
+    val materialsViewed: Boolean = false,
+    /** Capítulos cuyo módulo puede abrirse desde Inicio (ver [gatedChapterOrder]). */
+    val unlockedChapters: Set<Int> = emptySet()
 )
 
 class HomeViewModel(private val container: AppContainer) : ViewModel() {
@@ -26,25 +31,55 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            container.challengeRepository.observeSummariesByChapter().collect { grouped ->
+            combine(
+                container.challengeRepository.observeSummariesByChapter(),
+                container.profileRepository.observeProfile()
+            ) { grouped, profile -> grouped to profile }.collect { (grouped, profile) ->
                 val overall = container.challengeRepository.overallProgressPercent()
+                val conceptsViewed = profile?.conceptsViewed == true
+                val materialsViewed = profile?.materialsViewed == true
+                val unlocked = unlockedChapters(grouped, conceptsViewed && materialsViewed)
                 val next = grouped.values.flatten()
+                    .filter { it.challenge.worldChapter in unlocked }
                     .sortedWith(compareBy({ it.challenge.worldChapter }, { it.challenge.orderInChapter }))
                     .firstOrNull { it.state == ModuleState.DISPONIBLE || it.state == ModuleState.INICIADO }
                 _uiState.value = _uiState.value.copy(
                     overallProgressPercent = overall,
                     chaptersInOrder = grouped.keys.sorted(),
                     summariesByChapter = grouped,
-                    nextChallenge = next
+                    nextChallenge = next,
+                    alias = profile?.alias ?: _uiState.value.alias,
+                    avatarId = profile?.avatarId ?: _uiState.value.avatarId,
+                    conceptsViewed = conceptsViewed,
+                    materialsViewed = materialsViewed,
+                    unlockedChapters = unlocked
                 )
             }
         }
-        viewModelScope.launch {
-            container.profileRepository.observeProfile().collect { profile ->
-                if (profile != null) {
-                    _uiState.value = _uiState.value.copy(alias = profile.alias, avatarId = profile.avatarId)
-                }
+    }
+
+    companion object {
+        /**
+         * Orden de desbloqueo de los 4 capítulos principales (coincide con
+         * Routes.CHAPTER_VIGAS..CARGAS, duplicado aquí como enteros para no
+         * acoplar el ViewModel a la capa de navegación/UI). Cualquier otro
+         * capítulo (p.ej. Retos) no está sujeto a esta compuerta.
+         */
+        private val gatedChapterOrder = listOf(1, 2, 3, 4)
+
+        fun unlockedChapters(grouped: Map<Int, List<ChallengeSummary>>, basicsRead: Boolean): Set<Int> {
+            val unlocked = mutableSetOf<Int>()
+            unlocked += grouped.keys.filter { it !in gatedChapterOrder }
+            if (!basicsRead) return unlocked
+            var previousOk = true
+            for (chapter in gatedChapterOrder) {
+                if (!previousOk) break
+                unlocked += chapter
+                val list = grouped[chapter].orEmpty()
+                val percent = if (list.isEmpty()) 0 else (list.count { it.state == ModuleState.COMPLETADO || it.state == ModuleState.DOMINADO } * 100) / list.size
+                previousOk = percent >= 50
             }
+            return unlocked
         }
     }
 }

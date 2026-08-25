@@ -275,6 +275,31 @@ class StructureEngineTest {
         assertTrue(result.passed)
     }
 
+    @Test fun `estructura que ignora uno de los dos apoyos disponibles no aprueba (no esta cerrada)`() {
+        // Una columna sale de un solo apoyo (A) y encima se apilan dos vigas sueltas:
+        // conectada al suelo (via A), pero el segundo apoyo (B) nunca se usa.
+        val d = StructureDesign("c", listOf(
+            node("A", 0, 0, SupportType.FIJO), node("B", 5, 0, SupportType.FIJO),
+            node("C", 0, 2), node("D", 2, 2), node("E", 4, 2)
+        ), listOf(
+            member("col", "A", "C", role = MemberRole.COLUMNA),
+            member("v1", "C", "D", role = MemberRole.VIGA),
+            member("v2", "D", "E", role = MemberRole.VIGA)
+        ), emptyList())
+        val challenge = basicChallenge(goals = listOf(ChallengeGoal(ChallengeGoalType.VIGAS_MINIMAS, 2)))
+        val result = StructureEngine.simulate(d, challenge)
+        assertTrue(result.isConnected)
+        assertFalse(StructureEngine.allSupportsUsed(d))
+        assertFalse(result.passed)
+    }
+
+    @Test fun `estructura que usa ambos apoyos si puede aprobar`() {
+        val d = towerDesign(heightSteps = 2, withDiagonals = true)
+        assertTrue(StructureEngine.allSupportsUsed(d))
+        val result = StructureEngine.simulate(d, basicChallenge())
+        assertTrue(result.passed)
+    }
+
     @Test fun `objetivo de altura minima no cumplido rechaza el diseno`() {
         val d = towerDesign(heightSteps = 1, withDiagonals = true)
         val challenge = basicChallenge(goals = listOf(ChallengeGoal(ChallengeGoalType.ALTURA_MINIMA, 10)))

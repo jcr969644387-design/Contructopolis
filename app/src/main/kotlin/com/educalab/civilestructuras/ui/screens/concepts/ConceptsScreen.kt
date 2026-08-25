@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,7 +20,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.educalab.civilestructuras.AppContainer
 import com.educalab.civilestructuras.ui.theme.ConstructoColors
+import com.educalab.civilestructuras.viewmodel.GenericViewModelFactory
+import com.educalab.civilestructuras.viewmodel.ProfileViewModel
 
 private data class ConceptCard(
     val title: String,
@@ -81,7 +86,9 @@ private val CONCEPTS = listOf(
 )
 
 @Composable
-fun ConceptsScreen() {
+fun ConceptsScreen(container: AppContainer) {
+    val viewModel: ProfileViewModel = viewModel(factory = GenericViewModelFactory({ ProfileViewModel(it) }, container))
+    LaunchedEffect(Unit) { viewModel.markConceptsViewed() }
     LazyColumn(
         modifier = Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding(),
         contentPadding = PaddingValues(20.dp),

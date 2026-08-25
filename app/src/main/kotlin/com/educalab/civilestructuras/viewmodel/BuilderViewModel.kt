@@ -36,18 +36,8 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
     private var memberCounter = 0
     private var loadCounter = 0
     private var pristineDesign = StructureDesign("", emptyList(), emptyList(), emptyList())
-    private var soundEnabled = true
-    private var hapticEnabled = true
 
     init {
-        viewModelScope.launch {
-            container.profileRepository.observeProfile().collect { profile ->
-                if (profile != null) {
-                    soundEnabled = profile.soundEnabled
-                    hapticEnabled = profile.hapticEnabled
-                }
-            }
-        }
         viewModelScope.launch {
             val challenge = container.challengeRepository.getChallengeModel(challengeId)
             container.challengeRepository.markStarted(challengeId)
@@ -85,14 +75,14 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
                 if (design.nodes.any { it.position.x == x && it.position.y == y }) return
                 val newNode = StructureNodeModel(id = "n${nodeCounter++}", position = NodePosition(x, y))
                 updateDesign(design.copy(nodes = design.nodes + newNode))
-                container.feedbackPlayer.tap(soundEnabled, hapticEnabled)
+                container.feedbackPlayer.tap()
             }
             BuilderTool.MIEMBRO -> {
                 val tappedNode = design.nodes.firstOrNull { it.position.x == x && it.position.y == y } ?: return
                 val pendingId = state.pendingMemberStartNodeId
                 if (pendingId == null) {
                     _uiState.value = state.copy(pendingMemberStartNodeId = tappedNode.id)
-                    container.feedbackPlayer.tap(soundEnabled, hapticEnabled)
+                    container.feedbackPlayer.tap()
                 } else if (pendingId != tappedNode.id) {
                     val startNode = design.nodeById(pendingId)
                     if (startNode != null && isValidOrientation(startNode.position, tappedNode.position, state.selectedRole)) {
@@ -102,13 +92,13 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
                         )
                         updateDesign(design.copy(members = design.members + newMember))
                         _uiState.value = _uiState.value.copy(pendingMemberStartNodeId = null)
-                        container.feedbackPlayer.confirm(soundEnabled, hapticEnabled)
+                        container.feedbackPlayer.confirm()
                     } else {
                         _uiState.value = _uiState.value.copy(
                             pendingMemberStartNodeId = null,
                             roleMismatchMessage = orientationHint(state.selectedRole)
                         )
-                        container.feedbackPlayer.warn(soundEnabled, hapticEnabled)
+                        container.feedbackPlayer.warn()
                     }
                 }
             }
@@ -116,7 +106,7 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
                 val tappedNode = design.nodes.firstOrNull { it.position.x == x && it.position.y == y } ?: return
                 val newLoad = LoadModel(id = "l${loadCounter++}", nodeId = tappedNode.id, magnitude = DEFAULT_LOAD_MAGNITUDE)
                 updateDesign(design.copy(loads = design.loads + newLoad))
-                container.feedbackPlayer.tap(soundEnabled, hapticEnabled)
+                container.feedbackPlayer.tap()
             }
             BuilderTool.BORRAR -> {
                 val nodeAtCell = design.nodes.firstOrNull { it.position.x == x && it.position.y == y }
@@ -128,7 +118,7 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
                             loads = design.loads.filterNot { it.nodeId == nodeAtCell.id }
                         )
                     )
-                    container.feedbackPlayer.tap(soundEnabled, hapticEnabled)
+                    container.feedbackPlayer.tap()
                 }
             }
         }
@@ -141,7 +131,7 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
             pendingMemberStartNodeId = null,
             lastOutcome = null
         )
-        container.feedbackPlayer.warn(soundEnabled, hapticEnabled)
+        container.feedbackPlayer.warn()
     }
 
     fun dismissRoleMismatch() {
@@ -162,7 +152,7 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
         viewModelScope.launch {
             container.designRepository.saveDesign(_uiState.value.design)
             _uiState.value = _uiState.value.copy(savedNotice = true)
-            container.feedbackPlayer.confirm(soundEnabled, hapticEnabled)
+            container.feedbackPlayer.confirm()
         }
     }
 
@@ -180,9 +170,9 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
             val outcome = container.simulationRepository.runSimulation(challenge, _uiState.value.design)
             _uiState.value = _uiState.value.copy(lastOutcome = outcome, newBadges = outcome.newlyUnlockedBadges)
             if (outcome.result.passed) {
-                container.feedbackPlayer.success(soundEnabled, hapticEnabled)
+                container.feedbackPlayer.success()
             } else {
-                container.feedbackPlayer.failure(soundEnabled, hapticEnabled)
+                container.feedbackPlayer.failure()
             }
         }
     }

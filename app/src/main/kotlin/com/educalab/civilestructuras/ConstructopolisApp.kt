@@ -20,5 +20,16 @@ class ConstructopolisApp : Application() {
             container.seeder.seedIfNeeded()
             container.profileRepository.getOrCreateDefault()
         }
+        // Mantiene FeedbackPlayer sincronizado con los ajustes del perfil en un
+        // solo lugar: así cualquier pantalla puede pedir sonido/vibración sin
+        // tener que observar el perfil por su cuenta.
+        appScope.launch {
+            container.profileRepository.observeProfile().collect { profile ->
+                if (profile != null) {
+                    container.feedbackPlayer.soundEnabled = profile.soundEnabled
+                    container.feedbackPlayer.hapticEnabled = profile.hapticEnabled
+                }
+            }
+        }
     }
 }

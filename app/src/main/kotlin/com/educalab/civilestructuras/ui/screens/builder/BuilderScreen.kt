@@ -476,6 +476,7 @@ private fun SimulationResultPanel(result: SimulationResultModel, challenge: Stru
 
 private fun feedbackText(result: SimulationResultModel): String = when (result.feedbackKey) {
     "feedback_no_conectado" -> "Tu estructura no está conectada al suelo. Revisa que todas las piezas lleguen hasta un apoyo."
+    "feedback_apoyo_sin_usar" -> "Tu estructura no llega hasta uno de los apoyos. Conecta ambos extremos: una pieza colgando de un solo lado no es una estructura cerrada."
     "feedback_miembro_fallido" -> "Alguna pieza recibió más peso del que puede soportar y se rompió. Prueba con un material más resistente o reparte mejor la carga."
     "feedback_presupuesto_excedido" -> "Te pasaste del presupuesto disponible. Intenta usar materiales más económicos o menos piezas."
     "feedback_altura_insuficiente" -> "Tu estructura necesita ser más alta para cumplir este reto."

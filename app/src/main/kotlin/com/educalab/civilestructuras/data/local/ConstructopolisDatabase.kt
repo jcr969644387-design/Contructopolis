@@ -26,7 +26,7 @@ import com.educalab.civilestructuras.data.local.entity.*
         BadgeEntity::class,
         UserBadgeEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 @TypeConverters(BooleanConverters::class)

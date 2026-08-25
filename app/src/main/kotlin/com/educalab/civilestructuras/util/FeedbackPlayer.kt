@@ -11,12 +11,16 @@ import android.os.VibratorManager
 /**
  * Feedback sonoro/háptico ligero para el Constructor: no usa archivos de
  * audio (no hay assets de sonido en el proyecto), sino tonos sintetizados
- * por [ToneGenerator] y patrones simples de [Vibrator]. Cada llamada recibe
- * los flags de ajustes del perfil (sonido/vibración) para respetarlos sin
- * que el resto del código tenga que consultarlos.
+ * por [ToneGenerator] y patrones simples de [Vibrator]. [soundEnabled] y
+ * [hapticEnabled] se mantienen sincronizados centralmente desde el perfil
+ * (ver ConstructopolisApp), así ningún llamador necesita observar el perfil
+ * por su cuenta para respetar los ajustes del usuario.
  */
 class FeedbackPlayer(context: Context) {
     private val appContext = context.applicationContext
+
+    @Volatile var soundEnabled: Boolean = true
+    @Volatile var hapticEnabled: Boolean = true
 
     private val vibrator: Vibrator? by lazy {
         runCatching {
@@ -32,34 +36,34 @@ class FeedbackPlayer(context: Context) {
 
     private var toneGenerator: ToneGenerator? = null
 
-    fun tap(soundEnabled: Boolean, hapticEnabled: Boolean) {
-        if (soundEnabled) playTone(ToneGenerator.TONE_PROP_BEEP, 40)
-        if (hapticEnabled) vibrateOneShot(20)
-    }
-
-    fun confirm(soundEnabled: Boolean, hapticEnabled: Boolean) {
-        if (soundEnabled) playTone(ToneGenerator.TONE_PROP_ACK, 120)
+    fun tap() {
+        if (soundEnabled) playTone(ToneGenerator.TONE_PROP_BEEP, 70)
         if (hapticEnabled) vibrateOneShot(35)
     }
 
-    fun success(soundEnabled: Boolean, hapticEnabled: Boolean) {
-        if (soundEnabled) playTone(ToneGenerator.TONE_PROP_ACK, 180)
-        if (hapticEnabled) vibratePattern(longArrayOf(0, 60, 60, 90))
+    fun confirm() {
+        if (soundEnabled) playTone(ToneGenerator.TONE_PROP_ACK, 140)
+        if (hapticEnabled) vibrateOneShot(45)
     }
 
-    fun failure(soundEnabled: Boolean, hapticEnabled: Boolean) {
-        if (soundEnabled) playTone(ToneGenerator.TONE_PROP_NACK, 220)
-        if (hapticEnabled) vibrateOneShot(180)
+    fun success() {
+        if (soundEnabled) playTone(ToneGenerator.TONE_PROP_ACK, 200)
+        if (hapticEnabled) vibratePattern(longArrayOf(0, 70, 60, 100))
     }
 
-    fun warn(soundEnabled: Boolean, hapticEnabled: Boolean) {
-        if (soundEnabled) playTone(ToneGenerator.TONE_CDMA_PIP, 80)
-        if (hapticEnabled) vibrateOneShot(60)
+    fun failure() {
+        if (soundEnabled) playTone(ToneGenerator.TONE_PROP_NACK, 240)
+        if (hapticEnabled) vibrateOneShot(200)
+    }
+
+    fun warn() {
+        if (soundEnabled) playTone(ToneGenerator.TONE_CDMA_PIP, 100)
+        if (hapticEnabled) vibrateOneShot(70)
     }
 
     private fun playTone(tone: Int, durationMs: Int) {
         runCatching {
-            val generator = toneGenerator ?: ToneGenerator(AudioManager.STREAM_MUSIC, 70).also { toneGenerator = it }
+            val generator = toneGenerator ?: ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME).also { toneGenerator = it }
             generator.startTone(tone, durationMs)
         }
     }

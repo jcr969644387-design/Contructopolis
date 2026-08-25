@@ -36,6 +36,16 @@ class ProfileRepository(private val profileDao: ProfileDao) {
         profileDao.upsert(current.copy(hapticEnabled = enabled))
     }
 
+    suspend fun markConceptsViewed() {
+        val current = profileDao.get() ?: return
+        if (!current.conceptsViewed) profileDao.upsert(current.copy(conceptsViewed = true))
+    }
+
+    suspend fun markMaterialsViewed() {
+        val current = profileDao.get() ?: return
+        if (!current.materialsViewed) profileDao.upsert(current.copy(materialsViewed = true))
+    }
+
     suspend fun completeOnboarding(alias: String, avatarId: Int) {
         val current = profileDao.get() ?: return
         profileDao.upsert(

@@ -62,7 +62,7 @@ fun ChapterListScreen(
                 state = summary.state,
                 stars = summary.bestStars,
                 accentColor = ConstructoColors.CraneOrange,
-                onClick = { onOpenChallenge(summary.challenge.id) }
+                onClick = { container.feedbackPlayer.tap(); onOpenChallenge(summary.challenge.id) }
             )
         }
     }

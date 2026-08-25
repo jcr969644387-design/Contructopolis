@@ -70,7 +70,7 @@ fun ConstructopolisNavGraph(container: AppContainer) {
                 onProfileClick = { navController.navigate(Routes.PROFILE) }
             )
         }
-        composable(Routes.CONCEPTS) { ConceptsScreen() }
+        composable(Routes.CONCEPTS) { ConceptsScreen(container) }
         composable(Routes.MATERIALS) { MaterialsScreen(container) }
         composable(Routes.BLUEPRINTS) { BlueprintsScreen(container) }
         composable(Routes.PROFILE) { ProfileScreen(container, onBack = { navController.popBackStack() }) }
