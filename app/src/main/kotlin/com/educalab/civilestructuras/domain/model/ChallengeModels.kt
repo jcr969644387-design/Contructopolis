@@ -7,7 +7,15 @@ enum class ChallengeGoalType {
     RESISTIR_CARGA_LATERAL,
     TRIANGULACION_MINIMA,
     PESO_MAXIMO,
-    ESTABILIDAD_MINIMA
+    ESTABILIDAD_MINIMA,
+    /** Cantidad mínima de piezas con rol COLUMNA en el diseño (cuenta absoluta, no porcentaje). */
+    COLUMNAS_MINIMAS,
+    /** Cantidad mínima de piezas con rol VIGA en el diseño. */
+    VIGAS_MINIMAS,
+    /** Cantidad mínima de piezas con rol DIAGONAL en el diseño (triangulaciones reales, no un porcentaje fácil de inflar con pocas piezas). */
+    DIAGONALES_MINIMAS,
+    /** Cantidad mínima de materiales distintos realmente usados en el diseño construido. */
+    MATERIALES_MINIMOS
 }
 
 /** Objetivo concreto de un reto: tipo + valor umbral (unidad depende del tipo). */

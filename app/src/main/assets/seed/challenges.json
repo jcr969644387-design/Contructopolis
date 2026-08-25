@@ -299,7 +299,7 @@
     "orderInChapter": 1,
     "worldChapter": 2,
     "title": "Pilar de Entrada",
-    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "briefing": "Una sola columna no basta para sostener un techo real: necesitas al menos dos, una a cada lado.",
     "category": "COLUMNA",
     "gridWidth": 6,
     "gridHeight": 6,
@@ -314,6 +314,10 @@
       {
         "type": "ALTURA_MINIMA",
         "value": 4
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
       },
       {
         "type": "PESO_MAXIMO",
@@ -339,7 +343,7 @@
     "orderInChapter": 2,
     "worldChapter": 2,
     "title": "Columnas Gemelas",
-    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "briefing": "Combina madera y acero: usa cada material donde mejor rinde, no solo el que ya conoces.",
     "category": "COLUMNA",
     "gridWidth": 6,
     "gridHeight": 8,
@@ -355,6 +359,14 @@
       {
         "type": "ALTURA_MINIMA",
         "value": 6
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
       },
       {
         "type": "PESO_MAXIMO",
@@ -380,7 +392,7 @@
     "orderInChapter": 3,
     "worldChapter": 2,
     "title": "Soporte Central",
-    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "briefing": "Dos columnas necesitan una viga que las una arriba: sin ella no es un marco, son dos palos sueltos.",
     "category": "COLUMNA",
     "gridWidth": 7,
     "gridHeight": 8,
@@ -397,8 +409,16 @@
         "value": 6
       },
       {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 1
+      },
+      {
         "type": "PESO_MAXIMO",
-        "value": 100
+        "value": 200
       }
     ],
     "presetSupports": [
@@ -420,7 +440,7 @@
     "orderInChapter": 4,
     "worldChapter": 2,
     "title": "Columna Robusta",
-    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "briefing": "Tienes madera, acero y concreto: combina al menos dos para equilibrar peso, costo y resistencia.",
     "category": "COLUMNA",
     "gridWidth": 7,
     "gridHeight": 9,
@@ -437,6 +457,14 @@
       {
         "type": "ALTURA_MINIMA",
         "value": 7
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
       },
       {
         "type": "PESO_MAXIMO",
@@ -462,7 +490,7 @@
     "orderInChapter": 5,
     "worldChapter": 2,
     "title": "Pilares del Depósito",
-    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "briefing": "Dos columnas, una viga que las conecte y dos materiales combinados: un depósito real necesita todo eso.",
     "category": "COLUMNA",
     "gridWidth": 8,
     "gridHeight": 9,
@@ -480,8 +508,20 @@
         "value": 7
       },
       {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 1
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
+      },
+      {
         "type": "PESO_MAXIMO",
-        "value": 120
+        "value": 250
       }
     ],
     "presetSupports": [
@@ -503,7 +543,7 @@
     "orderInChapter": 6,
     "worldChapter": 2,
     "title": "Columna de Concreto",
-    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "briefing": "Tres columnas piden un plan: reparte el presupuesto entre madera y concreto sin quedarte corta.",
     "category": "COLUMNA",
     "gridWidth": 8,
     "gridHeight": 10,
@@ -521,8 +561,20 @@
         "value": 8
       },
       {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 1
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
+      },
+      {
         "type": "PESO_MAXIMO",
-        "value": 130
+        "value": 160
       }
     ],
     "presetSupports": [
@@ -544,7 +596,7 @@
     "orderInChapter": 7,
     "worldChapter": 2,
     "title": "Soporte Triple",
-    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "briefing": "Tres columnas, dos vigas que las conecten en distintos niveles, y al menos dos materiales bien elegidos.",
     "category": "COLUMNA",
     "gridWidth": 9,
     "gridHeight": 10,
@@ -561,6 +613,18 @@
       {
         "type": "ALTURA_MINIMA",
         "value": 8
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
       },
       {
         "type": "PESO_MAXIMO",
@@ -586,7 +650,7 @@
     "orderInChapter": 8,
     "worldChapter": 2,
     "title": "Pilar Definitivo",
-    "briefing": "Es hora de sostener peso de verdad: elige bien tus columnas para no romper el taller.",
+    "briefing": "El reto final de columnas: tres pilares de acero, dos vigas, y un peso muy ajustado. Piensa antes de construir.",
     "category": "COLUMNA",
     "gridWidth": 9,
     "gridHeight": 11,
@@ -603,8 +667,16 @@
         "value": 9
       },
       {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "VIGAS_MINIMAS",
+        "value": 2
+      },
+      {
         "type": "PESO_MAXIMO",
-        "value": 150
+        "value": 330
       }
     ],
     "presetSupports": [
@@ -626,7 +698,7 @@
     "orderInChapter": 1,
     "worldChapter": 3,
     "title": "Torre Vigía",
-    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "briefing": "Una sola diagonal no tríangula nada: necesitas al menos 3 para resistir el viento en varios puntos.",
     "category": "TORRE",
     "gridWidth": 6,
     "gridHeight": 6,
@@ -643,8 +715,12 @@
         "value": 4
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 10
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 3
       }
     ],
     "presetSupports": [
@@ -666,7 +742,7 @@
     "orderInChapter": 2,
     "worldChapter": 3,
     "title": "Torre de Señales",
-    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "briefing": "Combina madera y acero mientras subes: 3 diagonales de verdad, no una sola cruzando todo.",
     "category": "TORRE",
     "gridWidth": 6,
     "gridHeight": 8,
@@ -684,8 +760,16 @@
         "value": 6
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 15
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
       }
     ],
     "presetSupports": [
@@ -707,7 +791,7 @@
     "orderInChapter": 3,
     "worldChapter": 3,
     "title": "Torre del Faro",
-    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "briefing": "El acero es fuerte pero pesado: reparte 4 diagonales entre columnas para no pasarte de peso.",
     "category": "TORRE",
     "gridWidth": 7,
     "gridHeight": 8,
@@ -724,8 +808,12 @@
         "value": 6
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 15
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 4
       }
     ],
     "presetSupports": [
@@ -747,7 +835,7 @@
     "orderInChapter": 4,
     "worldChapter": 3,
     "title": "Torre Estelar",
-    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "briefing": "Tienes los tres materiales: usa al menos dos y triangula con 4 diagonales bien repartidas.",
     "category": "TORRE",
     "gridWidth": 7,
     "gridHeight": 9,
@@ -766,8 +854,16 @@
         "value": 7
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 20
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 4
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
       }
     ],
     "presetSupports": [
@@ -789,7 +885,7 @@
     "orderInChapter": 5,
     "worldChapter": 3,
     "title": "Torre Skyline",
-    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "briefing": "3 columnas y 5 diagonales: una torre de este tamaño necesita más de un punto de apoyo lateral.",
     "category": "TORRE",
     "gridWidth": 8,
     "gridHeight": 9,
@@ -807,8 +903,16 @@
         "value": 7
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 20
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 5
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
       }
     ],
     "presetSupports": [
@@ -830,7 +934,7 @@
     "orderInChapter": 6,
     "worldChapter": 3,
     "title": "Torre Gemela",
-    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "briefing": "Dos torres gemelas de verdad: 3 columnas, 5 diagonales y los dos materiales combinados.",
     "category": "TORRE",
     "gridWidth": 8,
     "gridHeight": 10,
@@ -848,8 +952,16 @@
         "value": 8
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 25
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 5
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
       }
     ],
     "presetSupports": [
@@ -871,7 +983,7 @@
     "orderInChapter": 7,
     "worldChapter": 3,
     "title": "Torre Cuadrada",
-    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "briefing": "Combina los tres materiales a tu favor: 3 columnas, 6 diagonales, presupuesto ajustado.",
     "category": "TORRE",
     "gridWidth": 9,
     "gridHeight": 10,
@@ -890,8 +1002,16 @@
         "value": 8
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 25
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 6
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 3
       }
     ],
     "presetSupports": [
@@ -913,7 +1033,7 @@
     "orderInChapter": 8,
     "worldChapter": 3,
     "title": "Torre Corona",
-    "briefing": "¡Construye hacia el cielo! Cuanto más alto, más cuidado hay que tener con la esbeltez.",
+    "briefing": "El reto final de torres: 4 columnas de acero y 6 diagonales bien repartidas en toda la altura.",
     "category": "TORRE",
     "gridWidth": 9,
     "gridHeight": 11,
@@ -930,8 +1050,12 @@
         "value": 9
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 30
+        "type": "COLUMNAS_MINIMAS",
+        "value": 4
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 6
       }
     ],
     "presetSupports": [
@@ -953,7 +1077,7 @@
     "orderInChapter": 1,
     "worldChapter": 4,
     "title": "Ráfaga Suave",
-    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "briefing": "El viento empuja de lado. Una sola diagonal no alcanza: necesitas al menos 3 repartidas en la torre.",
     "category": "CARGA",
     "gridWidth": 6,
     "gridHeight": 6,
@@ -970,8 +1094,12 @@
         "value": 1
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 20
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 3
       }
     ],
     "presetSupports": [
@@ -1000,7 +1128,7 @@
     "orderInChapter": 2,
     "worldChapter": 4,
     "title": "Viento del Norte",
-    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "briefing": "El viento empuja de lado. Combina madera y acero, y refuerza con al menos 3 diagonales.",
     "category": "CARGA",
     "gridWidth": 6,
     "gridHeight": 8,
@@ -1018,8 +1146,16 @@
         "value": 1
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 25
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
       }
     ],
     "presetSupports": [
@@ -1048,7 +1184,7 @@
     "orderInChapter": 3,
     "worldChapter": 4,
     "title": "Tormenta Ligera",
-    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "briefing": "El viento empuja de lado. El acero pesa: reparte tus 4 diagonales con cuidado entre las columnas.",
     "category": "CARGA",
     "gridWidth": 7,
     "gridHeight": 8,
@@ -1065,8 +1201,12 @@
         "value": 1
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 25
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 4
       }
     ],
     "presetSupports": [
@@ -1095,7 +1235,7 @@
     "orderInChapter": 4,
     "worldChapter": 4,
     "title": "Viento Cruzado",
-    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "briefing": "El viento empuja de lado. Con los tres materiales disponibles, combina al menos dos con cabeza.",
     "category": "CARGA",
     "gridWidth": 7,
     "gridHeight": 9,
@@ -1114,8 +1254,16 @@
         "value": 1
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 30
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 4
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
       }
     ],
     "presetSupports": [
@@ -1144,7 +1292,7 @@
     "orderInChapter": 5,
     "worldChapter": 4,
     "title": "Vendaval de Prueba",
-    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "briefing": "El viento empuja de lado. Acero y concreto combinados, 5 diagonales, 3 columnas: piensa el reparto.",
     "category": "CARGA",
     "gridWidth": 8,
     "gridHeight": 9,
@@ -1162,8 +1310,16 @@
         "value": 1
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 30
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 5
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
       }
     ],
     "presetSupports": [
@@ -1192,7 +1348,7 @@
     "orderInChapter": 6,
     "worldChapter": 4,
     "title": "Viento y Altura",
-    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "briefing": "El viento empuja de lado. Cuanto más alto sopla, más columnas y diagonales necesitas repartidas.",
     "category": "CARGA",
     "gridWidth": 8,
     "gridHeight": 10,
@@ -1210,8 +1366,16 @@
         "value": 1
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 35
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 5
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
       }
     ],
     "presetSupports": [
@@ -1240,7 +1404,7 @@
     "orderInChapter": 7,
     "worldChapter": 4,
     "title": "Tormenta del Taller",
-    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "briefing": "El viento empuja de lado. Usa los tres materiales a tu favor: 6 diagonales y 4 columnas bien puestas.",
     "category": "CARGA",
     "gridWidth": 9,
     "gridHeight": 10,
@@ -1259,8 +1423,16 @@
         "value": 1
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 35
+        "type": "COLUMNAS_MINIMAS",
+        "value": 4
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 6
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 3
       }
     ],
     "presetSupports": [
@@ -1289,7 +1461,7 @@
     "orderInChapter": 8,
     "worldChapter": 4,
     "title": "Huracán Junior",
-    "briefing": "El viento empuja de lado. Sin diagonales, hasta la torre más bonita puede tambalear.",
+    "briefing": "El reto final de vientos: 4 columnas de acero y 6 diagonales resistiendo el huracán más fuerte.",
     "category": "CARGA",
     "gridWidth": 9,
     "gridHeight": 11,
@@ -1306,8 +1478,12 @@
         "value": 1
       },
       {
-        "type": "TRIANGULACION_MINIMA",
-        "value": 40
+        "type": "COLUMNAS_MINIMAS",
+        "value": 4
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 6
       }
     ],
     "presetSupports": [
@@ -1336,7 +1512,7 @@
     "orderInChapter": 1,
     "worldChapter": 5,
     "title": "Reto Combinado I",
-    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "briefing": "Todo junto por primera vez: altura, columnas, diagonales, presupuesto y estabilidad. ¡Demuestra lo aprendido!",
     "category": "RETO",
     "gridWidth": 6,
     "gridHeight": 6,
@@ -1348,6 +1524,18 @@
     ],
     "iconRes": "ic_challenge_reto",
     "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 4
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 3
+      },
       {
         "type": "ESTABILIDAD_MINIMA",
         "value": 55
@@ -1376,7 +1564,7 @@
     "orderInChapter": 2,
     "worldChapter": 5,
     "title": "Reto Combinado II",
-    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "briefing": "Ahora combina madera y acero además de todo lo demás: altura, columnas, diagonales y presupuesto.",
     "category": "RETO",
     "gridWidth": 6,
     "gridHeight": 8,
@@ -1389,6 +1577,22 @@
     ],
     "iconRes": "ic_challenge_reto",
     "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 6
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 2
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
+      },
       {
         "type": "ESTABILIDAD_MINIMA",
         "value": 60
@@ -1417,7 +1621,7 @@
     "orderInChapter": 3,
     "worldChapter": 5,
     "title": "Desafío de Nova",
-    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "briefing": "Solo acero, así que cada pieza cuenta: administra bien tus columnas y diagonales para no pasarte del presupuesto.",
     "category": "RETO",
     "gridWidth": 7,
     "gridHeight": 8,
@@ -1430,12 +1634,24 @@
     "iconRes": "ic_challenge_reto",
     "goals": [
       {
+        "type": "ALTURA_MINIMA",
+        "value": 6
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 4
+      },
+      {
         "type": "ESTABILIDAD_MINIMA",
         "value": 60
       },
       {
         "type": "PRESUPUESTO_MAXIMO",
-        "value": 400
+        "value": 450
       }
     ],
     "presetSupports": [
@@ -1457,7 +1673,7 @@
     "orderInChapter": 4,
     "worldChapter": 5,
     "title": "Reto del Ingeniero",
-    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "briefing": "Los tres materiales disponibles: combina al menos dos y sube más alto que nunca.",
     "category": "RETO",
     "gridWidth": 7,
     "gridHeight": 9,
@@ -1471,6 +1687,22 @@
     ],
     "iconRes": "ic_challenge_reto",
     "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 7
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 4
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
+      },
       {
         "type": "ESTABILIDAD_MINIMA",
         "value": 65
@@ -1499,7 +1731,7 @@
     "orderInChapter": 5,
     "worldChapter": 5,
     "title": "Gran Desafío",
-    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "briefing": "Acero y concreto combinados, 5 diagonales, 3 columnas: un gran desafío de verdad.",
     "category": "RETO",
     "gridWidth": 8,
     "gridHeight": 9,
@@ -1512,6 +1744,22 @@
     ],
     "iconRes": "ic_challenge_reto",
     "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 7
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 5
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
+      },
       {
         "type": "ESTABILIDAD_MINIMA",
         "value": 65
@@ -1540,7 +1788,7 @@
     "orderInChapter": 6,
     "worldChapter": 5,
     "title": "Reto Final de Capítulo",
-    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "briefing": "Madera y concreto combinados: encuentra el equilibrio entre peso, costo y altura.",
     "category": "RETO",
     "gridWidth": 8,
     "gridHeight": 10,
@@ -1553,6 +1801,22 @@
     ],
     "iconRes": "ic_challenge_reto",
     "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 8
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 3
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 5
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 2
+      },
       {
         "type": "ESTABILIDAD_MINIMA",
         "value": 70
@@ -1581,7 +1845,7 @@
     "orderInChapter": 7,
     "worldChapter": 5,
     "title": "Desafío Presupuestario",
-    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "briefing": "Los tres materiales, un presupuesto ajustado: combina los tres para llegar a todos los objetivos.",
     "category": "RETO",
     "gridWidth": 9,
     "gridHeight": 10,
@@ -1595,6 +1859,22 @@
     ],
     "iconRes": "ic_challenge_reto",
     "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 8
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 4
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 6
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 3
+      },
       {
         "type": "ESTABILIDAD_MINIMA",
         "value": 70
@@ -1623,7 +1903,7 @@
     "orderInChapter": 8,
     "worldChapter": 5,
     "title": "El Gran Proyecto",
-    "briefing": "Retos combinados: presupuesto, altura, viento y peso a la vez. ¡Demuestra todo lo aprendido!",
+    "briefing": "El reto final del Taller: combina madera, acero y concreto en la misma estructura. ¡Demuestra todo lo aprendido!",
     "category": "RETO",
     "gridWidth": 9,
     "gridHeight": 11,
@@ -1631,10 +1911,28 @@
     "starThreshold2": 62,
     "starThreshold3": 85,
     "allowedMaterials": [
-      "ACERO"
+      "MADERA",
+      "ACERO",
+      "CONCRETO"
     ],
     "iconRes": "ic_challenge_reto",
     "goals": [
+      {
+        "type": "ALTURA_MINIMA",
+        "value": 9
+      },
+      {
+        "type": "COLUMNAS_MINIMAS",
+        "value": 4
+      },
+      {
+        "type": "DIAGONALES_MINIMAS",
+        "value": 6
+      },
+      {
+        "type": "MATERIALES_MINIMOS",
+        "value": 3
+      },
       {
         "type": "ESTABILIDAD_MINIMA",
         "value": 75

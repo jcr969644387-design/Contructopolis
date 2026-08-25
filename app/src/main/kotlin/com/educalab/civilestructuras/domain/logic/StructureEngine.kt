@@ -272,6 +272,10 @@ object StructureEngine {
                 ChallengeGoalType.TRIANGULACION_MINIMA -> triangulationPercent >= goal.value
                 ChallengeGoalType.PESO_MAXIMO -> totalWeight <= goal.value
                 ChallengeGoalType.ESTABILIDAD_MINIMA -> stabilityScore >= goal.value
+                ChallengeGoalType.COLUMNAS_MINIMAS -> design.members.count { it.role == MemberRole.COLUMNA } >= goal.value
+                ChallengeGoalType.VIGAS_MINIMAS -> design.members.count { it.role == MemberRole.VIGA } >= goal.value
+                ChallengeGoalType.DIAGONALES_MINIMAS -> design.members.count { it.role == MemberRole.DIAGONAL } >= goal.value
+                ChallengeGoalType.MATERIALES_MINIMOS -> design.members.map { it.material }.distinct().size >= goal.value
             }
             if (!met) unmetGoals.add(goal.type)
         }
@@ -293,7 +297,10 @@ object StructureEngine {
             failedMemberIds.isNotEmpty() -> "feedback_miembro_fallido"
             totalCost > challenge.maxBudget -> "feedback_presupuesto_excedido"
             unmetGoals.contains(ChallengeGoalType.ALTURA_MINIMA) -> "feedback_altura_insuficiente"
-            unmetGoals.contains(ChallengeGoalType.TRIANGULACION_MINIMA) -> "feedback_falta_triangulacion"
+            unmetGoals.contains(ChallengeGoalType.DIAGONALES_MINIMAS) || unmetGoals.contains(ChallengeGoalType.TRIANGULACION_MINIMA) -> "feedback_falta_triangulacion"
+            unmetGoals.contains(ChallengeGoalType.COLUMNAS_MINIMAS) -> "feedback_faltan_columnas"
+            unmetGoals.contains(ChallengeGoalType.VIGAS_MINIMAS) -> "feedback_faltan_vigas"
+            unmetGoals.contains(ChallengeGoalType.MATERIALES_MINIMOS) -> "feedback_falta_variedad_material"
             unmetGoals.isNotEmpty() -> "feedback_objetivo_pendiente"
             starsEarned == 3 -> "feedback_excelente"
             starsEarned == 2 -> "feedback_solido"

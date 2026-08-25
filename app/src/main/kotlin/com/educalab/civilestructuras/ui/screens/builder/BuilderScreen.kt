@@ -180,6 +180,10 @@ private fun goalDescription(goal: ChallengeGoal): String = when (goal.type) {
     ChallengeGoalType.TRIANGULACION_MINIMA -> "Al menos el ${goal.value}% de tus piezas debe ser diagonales de triangulación."
     ChallengeGoalType.PESO_MAXIMO -> "No superes un peso total de ${goal.value}."
     ChallengeGoalType.ESTABILIDAD_MINIMA -> "Logra una estabilidad mínima del ${goal.value}%."
+    ChallengeGoalType.COLUMNAS_MINIMAS -> "Usa al menos ${goal.value} columnas."
+    ChallengeGoalType.VIGAS_MINIMAS -> "Usa al menos ${goal.value} vigas."
+    ChallengeGoalType.DIAGONALES_MINIMAS -> "Usa al menos ${goal.value} diagonales (triangulación real, no una sola)."
+    ChallengeGoalType.MATERIALES_MINIMOS -> "Combina al menos ${goal.value} materiales distintos en tu diseño."
 }
 
 @Composable
@@ -403,7 +407,10 @@ private fun feedbackText(result: SimulationResultModel): String = when (result.f
     "feedback_miembro_fallido" -> "Alguna pieza recibió más peso del que puede soportar y se rompió. Prueba con un material más resistente o reparte mejor la carga."
     "feedback_presupuesto_excedido" -> "Te pasaste del presupuesto disponible. Intenta usar materiales más económicos o menos piezas."
     "feedback_altura_insuficiente" -> "Tu estructura necesita ser más alta para cumplir este reto."
-    "feedback_falta_triangulacion" -> "Te faltan diagonales. Agrega triángulos para resistir mejor los empujes laterales."
+    "feedback_falta_triangulacion" -> "Te faltan diagonales. Agrega más triangulaciones para resistir mejor los empujes laterales."
+    "feedback_faltan_columnas" -> "Te faltan columnas. Revisa el objetivo: necesitas más piezas verticales sosteniendo la estructura."
+    "feedback_faltan_vigas" -> "Te faltan vigas. Conecta tus columnas con piezas horizontales para formar un marco real."
+    "feedback_falta_variedad_material" -> "Prueba a combinar más materiales distintos: cada uno tiene ventajas diferentes."
     "feedback_objetivo_pendiente" -> "Casi lo logras: revisa los objetivos del reto, todavía falta alguno."
     "feedback_excelente" -> "¡Excelente trabajo de ingeniería! Tu estructura es sólida y eficiente."
     "feedback_solido" -> "Buen diseño, sólido y estable. ¡Sigue así!"
