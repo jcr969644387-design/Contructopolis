@@ -1,6 +1,7 @@
 package com.educalab.civilestructuras.ui.screens.concepts
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -88,7 +89,10 @@ private val CONCEPTS = listOf(
 @Composable
 fun ConceptsScreen(container: AppContainer) {
     val viewModel: ProfileViewModel = viewModel(factory = GenericViewModelFactory({ ProfileViewModel(it) }, container))
-    LaunchedEffect(Unit) { viewModel.markConceptsViewed() }
+    var confirmed by remember { mutableStateOf(setOf<String>()) }
+    LaunchedEffect(confirmed) {
+        if (confirmed.size >= CONCEPTS.size) viewModel.markConceptsViewed()
+    }
     LazyColumn(
         modifier = Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding(),
         contentPadding = PaddingValues(20.dp),
@@ -97,23 +101,34 @@ fun ConceptsScreen(container: AppContainer) {
         item {
             Text("Conceptos del Taller", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             Text(
-                "Toca cada tarjeta para ver un ejemplo de la vida real.",
+                "Toca cada tarjeta, léela y marca \"Entendido\". Cuando confirmes las ${CONCEPTS.size}, desbloqueas Vigas.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
             )
             Spacer(Modifier.height(4.dp))
         }
-        items(CONCEPTS) { concept -> ConceptCardItem(concept) }
+        items(CONCEPTS) { concept ->
+            ConceptCardItem(
+                concept = concept,
+                confirmed = concept.title in confirmed,
+                onConfirm = {
+                    container.feedbackPlayer.confirm()
+                    confirmed = confirmed + concept.title
+                }
+            )
+        }
     }
 }
 
 @Composable
-private fun ConceptCardItem(concept: ConceptCard) {
+private fun ConceptCardItem(concept: ConceptCard, confirmed: Boolean, onConfirm: () -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+        colors = CardDefaults.cardColors(
+            containerColor = if (confirmed) ConstructoColors.SuccessGreen.copy(alpha = 0.16f) else MaterialTheme.colorScheme.surface
+        )
     ) {
         androidx.compose.foundation.layout.Column(
             modifier = Modifier.fillMaxWidth()
@@ -121,7 +136,8 @@ private fun ConceptCardItem(concept: ConceptCard) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(16.dp)
+                    .then(if (!expanded) Modifier.clickable { expanded = true } else Modifier),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(
@@ -138,6 +154,10 @@ private fun ConceptCardItem(concept: ConceptCard) {
                     Text(concept.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     Text(concept.everydayExample, style = MaterialTheme.typography.bodyMedium, maxLines = if (expanded) 6 else 2)
                 }
+                if (confirmed) {
+                    Icon(Icons.Filled.CheckCircle, contentDescription = "Entendido", tint = ConstructoColors.SuccessGreen, modifier = Modifier.size(22.dp))
+                    Spacer(Modifier.width(4.dp))
+                }
                 IconButton(onClick = { expanded = !expanded }) {
                     Icon(if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore, contentDescription = "Expandir")
                 }
@@ -146,9 +166,33 @@ private fun ConceptCardItem(concept: ConceptCard) {
                 Text(
                     concept.explanation,
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 12.dp),
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
                 )
+                Row(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
+                    if (confirmed) {
+                        AssistChip(
+                            onClick = {},
+                            enabled = false,
+                            leadingIcon = { Icon(Icons.Filled.Check, contentDescription = null, modifier = Modifier.size(16.dp)) },
+                            label = { Text("¡Entendido!") },
+                            colors = AssistChipDefaults.assistChipColors(
+                                containerColor = ConstructoColors.SuccessGreen.copy(alpha = 0.25f),
+                                labelColor = ConstructoColors.SuccessGreen,
+                                leadingIconContentColor = ConstructoColors.SuccessGreen,
+                                disabledContainerColor = ConstructoColors.SuccessGreen.copy(alpha = 0.25f),
+                                disabledLabelColor = ConstructoColors.SuccessGreen,
+                                disabledLeadingIconContentColor = ConstructoColors.SuccessGreen
+                            )
+                        )
+                    } else {
+                        Button(onClick = onConfirm) {
+                            Icon(Icons.Filled.Check, contentDescription = null, modifier = Modifier.size(16.dp))
+                            Spacer(Modifier.width(6.dp))
+                            Text("Entendido")
+                        }
+                    }
+                }
             }
         }
     }

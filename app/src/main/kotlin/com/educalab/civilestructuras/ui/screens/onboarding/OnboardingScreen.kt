@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.educalab.civilestructuras.AppContainer
 import com.educalab.civilestructuras.ui.components.CraneIllustration
 import com.educalab.civilestructuras.ui.components.NovaAvatar
 import com.educalab.civilestructuras.ui.components.StructureExampleDiagram
@@ -60,7 +61,7 @@ private val PAGES = listOf(
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnboardingScreen(onFinished: () -> Unit) {
+fun OnboardingScreen(container: AppContainer, onFinished: () -> Unit) {
     ConstructopolisTheme(darkTheme = false) {
         val pagerState = rememberPagerState(pageCount = { PAGES.size })
         val scope = rememberCoroutineScope()
@@ -128,8 +129,9 @@ fun OnboardingScreen(onFinished: () -> Unit) {
                 }
 
                 Row(Modifier.fillMaxWidth().padding(24.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                    TextButton(onClick = onFinished) { Text("Saltar") }
+                    TextButton(onClick = { container.feedbackPlayer.tap(); onFinished() }) { Text("Saltar") }
                     Button(onClick = {
+                        container.feedbackPlayer.tap()
                         if (pagerState.currentPage == PAGES.lastIndex) {
                             onFinished()
                         } else {

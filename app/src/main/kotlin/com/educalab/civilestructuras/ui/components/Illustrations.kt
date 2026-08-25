@@ -11,6 +11,87 @@ import androidx.compose.ui.unit.dp
 import com.educalab.civilestructuras.ui.theme.ConstructoColors
 import kotlin.math.min
 
+/** Oscurece un color un [amount] (0-1) manteniendo su alpha, para acentos como el ala del casco. */
+private fun darken(color: Color, amount: Float): Color = Color(
+    red = (color.red * (1f - amount)).coerceIn(0f, 1f),
+    green = (color.green * (1f - amount)).coerceIn(0f, 1f),
+    blue = (color.blue * (1f - amount)).coerceIn(0f, 1f),
+    alpha = color.alpha
+)
+
+/** Una de las 8 combinaciones de avatar (4 niño + 4 niña) que puede elegir el jugador. */
+private data class AvatarSpec(val skinTone: Color, val hairColor: Color, val isGirl: Boolean)
+
+private val AVATAR_SPECS = listOf(
+    // Niños (0-3)
+    AvatarSpec(Color(0xFFF2C29A), Color(0xFF1A1A1A), isGirl = false),
+    AvatarSpec(Color(0xFFE8B382), Color(0xFF3B2A1E), isGirl = false),
+    AvatarSpec(Color(0xFFC68642), Color(0xFFD9A441), isGirl = false),
+    AvatarSpec(Color(0xFF8D5524), Color(0xFFB33A2E), isGirl = false),
+    // Niñas (4-7)
+    AvatarSpec(Color(0xFFE8B382), Color(0xFF3B2A1E), isGirl = true),
+    AvatarSpec(Color(0xFFF2C29A), Color(0xFF1A1A1A), isGirl = true),
+    AvatarSpec(Color(0xFF8D5524), Color(0xFFD9A441), isGirl = true),
+    AvatarSpec(Color(0xFFC68642), Color(0xFFB33A2E), isGirl = true)
+)
+
+/**
+ * Retrato simple de un ingeniero/ingeniera junior con casco, para el
+ * selector de avatar (8 combinaciones: 4 niño + 4 niña). Pensado para verse
+ * bien incluso muy pequeño (48-96dp): formas grandes y sin detalle fino.
+ * El color de fondo del círculo (ver AvatarCircle) hace de casco; aquí solo
+ * se dibujan cara, cabello y facciones.
+ */
+@Composable
+fun EngineerAvatarCanvas(avatarId: Int, helmetAccent: Color, modifier: Modifier = Modifier) {
+    val spec = AVATAR_SPECS[avatarId.mod(AVATAR_SPECS.size)]
+    Canvas(modifier = modifier) {
+        val s = min(size.width, size.height)
+        val cx = size.width / 2
+        val cy = size.height / 2
+        val faceCenter = Offset(cx, cy + s * 0.04f)
+
+        // Coletas (solo niñas), dibujadas antes que la cara para que asomen a los lados
+        if (spec.isGirl) {
+            drawCircle(spec.hairColor, radius = s * 0.14f, center = Offset(cx - s * 0.36f, cy + s * 0.22f))
+            drawCircle(spec.hairColor, radius = s * 0.14f, center = Offset(cx + s * 0.36f, cy + s * 0.22f))
+        }
+
+        // Cara
+        drawCircle(spec.skinTone, radius = s * 0.34f, center = faceCenter)
+
+        // Mechones de cabello en las sienes
+        drawArc(
+            spec.hairColor, startAngle = 150f, sweepAngle = 55f, useCenter = false,
+            topLeft = Offset(cx - s * 0.40f, cy - s * 0.20f), size = Size(s * 0.22f, s * 0.22f), style = Stroke(width = s * 0.05f)
+        )
+        drawArc(
+            spec.hairColor, startAngle = -25f, sweepAngle = -55f, useCenter = false,
+            topLeft = Offset(cx + s * 0.18f, cy - s * 0.20f), size = Size(s * 0.22f, s * 0.22f), style = Stroke(width = s * 0.05f)
+        )
+
+        // Ala del casco, apoyada sobre la frente (más oscura que el fondo para que se note)
+        drawRect(
+            color = darken(helmetAccent, 0.25f),
+            topLeft = Offset(cx - s * 0.38f, cy - s * 0.30f),
+            size = Size(s * 0.76f, s * 0.09f)
+        )
+
+        // Ojos
+        drawCircle(ConstructoColors.InkDark, radius = s * 0.045f, center = Offset(cx - s * 0.13f, cy - s * 0.02f))
+        drawCircle(ConstructoColors.InkDark, radius = s * 0.045f, center = Offset(cx + s * 0.13f, cy - s * 0.02f))
+
+        // Sonrisa
+        drawArc(
+            color = ConstructoColors.InkDark,
+            startAngle = 20f, sweepAngle = 140f, useCenter = false,
+            topLeft = Offset(cx - s * 0.11f, cy + s * 0.06f),
+            size = Size(s * 0.22f, s * 0.16f),
+            style = Stroke(width = s * 0.035f)
+        )
+    }
+}
+
 /**
  * Retrato de la Ingeniera Nova: casco + cara + hombros con chaleco de
  * seguridad, para que se lea como una persona (busto) y no solo una cara

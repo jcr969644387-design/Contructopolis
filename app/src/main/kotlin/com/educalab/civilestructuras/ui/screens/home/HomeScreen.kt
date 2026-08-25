@@ -40,19 +40,23 @@ private data class WorkshopModule(
     val color: Color
 )
 
-/** Los 4 capítulos principales del Taller: se desbloquean en orden, uno tras otro. */
+/**
+ * Los 5 capítulos principales del Taller: se desbloquean en orden. Vigas
+ * exige haber leído Conceptos y Materiales; cada capítulo siguiente exige
+ * >=50% del anterior; Retos (el final) exige el 100% de los otros 4.
+ */
 private val MAIN_CHAPTER_MODULES = listOf(
     WorkshopModule(Routes.CHAPTER_VIGAS, Routes.chapter(Routes.CHAPTER_VIGAS), "Vigas", "Puentes y pasarelas", Icons.Filled.HorizontalRule, ConstructoColors.SteelBlue),
     WorkshopModule(Routes.CHAPTER_COLUMNAS, Routes.chapter(Routes.CHAPTER_COLUMNAS), "Columnas", "Pilares y soportes", Icons.Filled.ViewColumn, ConstructoColors.ConcreteGray),
     WorkshopModule(Routes.CHAPTER_TORRES, Routes.chapter(Routes.CHAPTER_TORRES), "Torres", "Construye hacia el cielo", Icons.Filled.CellTower, ConstructoColors.CraneOrange),
-    WorkshopModule(Routes.CHAPTER_CARGAS, Routes.chapter(Routes.CHAPTER_CARGAS), "Cargas y Viento", "Resiste la simulación", Icons.Filled.Air, ConstructoColors.SteelBlueLight)
+    WorkshopModule(Routes.CHAPTER_CARGAS, Routes.chapter(Routes.CHAPTER_CARGAS), "Cargas y Viento", "Resiste la simulación", Icons.Filled.Air, ConstructoColors.SteelBlueLight),
+    WorkshopModule(Routes.CHAPTER_RETOS, Routes.chapter(Routes.CHAPTER_RETOS), "Gran Taller de Retos", "Todo junto, a prueba", Icons.Filled.EmojiEvents, ConstructoColors.DangerRed)
 )
 
-/** Módulos de apoyo: siempre disponibles (Conceptos/Materiales dan la base; Retos y Planos son de repaso/colección). */
+/** Módulos de apoyo: siempre disponibles. Conceptos/Materiales son la base para desbloquear Vigas; Planos es de colección. */
 private val SECONDARY_MODULES = listOf(
     WorkshopModule(null, Routes.CONCEPTS, "Conceptos", "Ideas clave de ingeniería", Icons.Filled.Lightbulb, ConstructoColors.WarningYellow),
     WorkshopModule(null, Routes.MATERIALS, "Materiales", "Madera, acero y concreto", Icons.Filled.Category, ConstructoColors.WoodBrown),
-    WorkshopModule(Routes.CHAPTER_RETOS, Routes.chapter(Routes.CHAPTER_RETOS), "Gran Taller de Retos", "Todo junto, a prueba", Icons.Filled.EmojiEvents, ConstructoColors.DangerRed),
     WorkshopModule(null, Routes.BLUEPRINTS, "Planos y Logros", "Tu colección de insignias", Icons.Filled.WorkspacePremium, ConstructoColors.SuccessGreen)
 )
 
@@ -87,12 +91,21 @@ fun HomeScreen(
                 }
             }
             val basicsRead = state.conceptsViewed && state.materialsViewed
+            if (!basicsRead) {
+                item {
+                    InstructionBanner(
+                        onConceptsClick = { container.feedbackPlayer.tap(); onNavigate(Routes.CONCEPTS) },
+                        onMaterialsClick = { container.feedbackPlayer.tap(); onNavigate(Routes.MATERIALS) }
+                    )
+                }
+            }
             itemsIndexed(MAIN_CHAPTER_MODULES) { index, module ->
                 val summaries = module.chapter?.let { state.summariesByChapter[it] }
                 val unlocked = module.chapter == null || module.chapter in state.unlockedChapters
                 val lockedHint = when {
                     unlocked -> null
                     !basicsRead -> "Lee Conceptos y Materiales para desbloquear"
+                    module.chapter == Routes.CHAPTER_RETOS -> "Completa el 100% de Vigas, Columnas, Torres y Cargas y Viento para desbloquear"
                     else -> "Completa el 50% de ${MAIN_CHAPTER_MODULES[index - 1].title} para desbloquear"
                 }
                 ModuleRow(
@@ -168,7 +181,7 @@ private fun HomeHeader(alias: String, avatarId: Int, onProfileClick: () -> Unit)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
             Column(Modifier.weight(1f)) {
-                Text("¡Hola, ingeniero $alias!", style = MaterialTheme.typography.headlineMedium, color = ConstructoColors.OffWhite, fontWeight = FontWeight.Bold)
+                Text("¡Hola, Ingeniero $alias!", style = MaterialTheme.typography.headlineMedium, color = ConstructoColors.OffWhite, fontWeight = FontWeight.Bold)
                 Text("Bienvenida de vuelta al Taller", style = MaterialTheme.typography.bodyMedium, color = ConstructoColors.WarningYellow)
             }
             Box(
@@ -179,6 +192,39 @@ private fun HomeHeader(alias: String, avatarId: Int, onProfileClick: () -> Unit)
                     .padding(4.dp)
             ) {
                 AvatarCircle(avatarId = avatarId, size = 48.dp)
+            }
+        }
+    }
+}
+
+@Composable
+private fun InstructionBanner(onConceptsClick: () -> Unit, onMaterialsClick: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .padding(horizontal = 20.dp, vertical = 6.dp)
+            .fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = ConstructoColors.WarningYellow.copy(alpha = 0.16f)),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Column(Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Filled.Lightbulb, contentDescription = null, tint = ConstructoColors.CraneOrangeDark)
+                Spacer(Modifier.width(10.dp))
+                Text(
+                    "Antes de construir, lee Conceptos y Materiales",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Spacer(Modifier.height(6.dp))
+            Text(
+                "Así entenderás de qué trata el Taller. Confirma \"Entendido\" en cada tarjeta para desbloquear Vigas, Columnas, Torres y Cargas y Viento.",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(Modifier.height(10.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                OutlinedButton(onClick = onConceptsClick) { Text("Ir a Conceptos") }
+                OutlinedButton(onClick = onMaterialsClick) { Text("Ir a Materiales") }
             }
         }
     }

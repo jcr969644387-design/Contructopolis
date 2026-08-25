@@ -20,7 +20,7 @@ data class HomeUiState(
     val nextChallenge: ChallengeSummary? = null,
     val conceptsViewed: Boolean = false,
     val materialsViewed: Boolean = false,
-    /** Capítulos cuyo módulo puede abrirse desde Inicio (ver [gatedChapterOrder]). */
+    /** Capítulos cuyo módulo puede abrirse desde Inicio (ver [HomeViewModel.unlockedChapters]). */
     val unlockedChapters: Set<Int> = emptySet()
 )
 
@@ -62,22 +62,31 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
         /**
          * Orden de desbloqueo de los 4 capítulos principales (coincide con
          * Routes.CHAPTER_VIGAS..CARGAS, duplicado aquí como enteros para no
-         * acoplar el ViewModel a la capa de navegación/UI). Cualquier otro
-         * capítulo (p.ej. Retos) no está sujeto a esta compuerta.
+         * acoplar el ViewModel a la capa de navegación/UI). El capítulo de
+         * Retos (5) se desbloquea aparte, solo cuando los 4 anteriores están
+         * al 100%.
          */
         private val gatedChapterOrder = listOf(1, 2, 3, 4)
+        private const val RETOS_CHAPTER = 5
+
+        fun chapterCompletionPercent(grouped: Map<Int, List<ChallengeSummary>>, chapter: Int): Int {
+            val list = grouped[chapter].orEmpty()
+            if (list.isEmpty()) return 0
+            return (list.count { it.state == ModuleState.COMPLETADO || it.state == ModuleState.DOMINADO } * 100) / list.size
+        }
 
         fun unlockedChapters(grouped: Map<Int, List<ChallengeSummary>>, basicsRead: Boolean): Set<Int> {
             val unlocked = mutableSetOf<Int>()
-            unlocked += grouped.keys.filter { it !in gatedChapterOrder }
+            unlocked += grouped.keys.filter { it !in gatedChapterOrder && it != RETOS_CHAPTER }
             if (!basicsRead) return unlocked
             var previousOk = true
             for (chapter in gatedChapterOrder) {
                 if (!previousOk) break
                 unlocked += chapter
-                val list = grouped[chapter].orEmpty()
-                val percent = if (list.isEmpty()) 0 else (list.count { it.state == ModuleState.COMPLETADO || it.state == ModuleState.DOMINADO } * 100) / list.size
-                previousOk = percent >= 50
+                previousOk = chapterCompletionPercent(grouped, chapter) >= 50
+            }
+            if (gatedChapterOrder.all { chapterCompletionPercent(grouped, it) >= 100 }) {
+                unlocked += RETOS_CHAPTER
             }
             return unlocked
         }

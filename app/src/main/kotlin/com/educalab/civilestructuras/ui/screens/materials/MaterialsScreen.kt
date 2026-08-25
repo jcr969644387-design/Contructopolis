@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AttachMoney
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.Scale
 import androidx.compose.material3.*
@@ -14,11 +16,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -35,8 +39,13 @@ import com.educalab.civilestructuras.viewmodel.ProfileViewModel
 fun MaterialsScreen(container: AppContainer) {
     val viewModel: MaterialsViewModel = viewModel(factory = GenericViewModelFactory({ MaterialsViewModel(it) }, container))
     val profileViewModel: ProfileViewModel = viewModel(factory = GenericViewModelFactory({ ProfileViewModel(it) }, container))
-    LaunchedEffect(Unit) { profileViewModel.markMaterialsViewed() }
     val materials by viewModel.materials.collectAsState()
+    var confirmed by remember { mutableStateOf(setOf<String>()) }
+    LaunchedEffect(confirmed, materials) {
+        if (materials.isNotEmpty() && confirmed.containsAll(materials.map { it.id })) {
+            profileViewModel.markMaterialsViewed()
+        }
+    }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding(),
@@ -46,19 +55,34 @@ fun MaterialsScreen(container: AppContainer) {
         item {
             Text("Materiales del Taller", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             Text(
-                "Cada material tiene resistencia, peso y costo distintos. Elige con cabeza.",
+                "Revisa cada material y marca \"Entendido\". Cuando confirmes los 3, desbloqueas Vigas.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
             )
         }
-        items(materials) { material -> MaterialCard(material) }
+        items(materials) { material ->
+            MaterialCard(
+                material = material,
+                confirmed = material.id in confirmed,
+                onConfirm = {
+                    container.feedbackPlayer.confirm()
+                    confirmed = confirmed + material.id
+                }
+            )
+        }
     }
 }
 
 @Composable
-private fun MaterialCard(material: MaterialEntity) {
+private fun MaterialCard(material: MaterialEntity, confirmed: Boolean, onConfirm: () -> Unit) {
     val color = runCatching { Color(android.graphics.Color.parseColor(material.colorHex)) }.getOrDefault(ConstructoColors.SteelBlue)
-    Card(shape = RoundedCornerShape(18.dp), modifier = Modifier.fillMaxWidth()) {
+    Card(
+        shape = RoundedCornerShape(18.dp),
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = if (confirmed) ConstructoColors.SuccessGreen.copy(alpha = 0.16f) else MaterialTheme.colorScheme.surface
+        )
+    ) {
         Column(Modifier.padding(18.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(
@@ -76,9 +100,12 @@ private fun MaterialCard(material: MaterialEntity) {
                     )
                 }
                 Spacer(Modifier.width(14.dp))
-                Column {
+                Column(Modifier.weight(1f)) {
                     Text(material.displayName, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
                     Text(material.description, style = MaterialTheme.typography.bodyMedium)
+                }
+                if (confirmed) {
+                    Icon(Icons.Filled.CheckCircle, contentDescription = "Entendido", tint = ConstructoColors.SuccessGreen, modifier = Modifier.size(22.dp))
                 }
             }
             Spacer(Modifier.height(14.dp))
@@ -86,6 +113,29 @@ private fun MaterialCard(material: MaterialEntity) {
                 StatPill(icon = Icons.Filled.FitnessCenter, label = "Resistencia", value = material.strength.toInt().toString(), color = ConstructoColors.SuccessGreen)
                 StatPill(icon = Icons.Filled.Scale, label = "Peso", value = material.weight.toInt().toString(), color = ConstructoColors.SteelBlue)
                 StatPill(icon = Icons.Filled.AttachMoney, label = "Costo", value = material.cost.toString(), color = ConstructoColors.WarningYellow)
+            }
+            Spacer(Modifier.height(14.dp))
+            if (confirmed) {
+                AssistChip(
+                    onClick = {},
+                    enabled = false,
+                    leadingIcon = { Icon(Icons.Filled.Check, contentDescription = null, modifier = Modifier.size(16.dp)) },
+                    label = { Text("¡Entendido!") },
+                    colors = AssistChipDefaults.assistChipColors(
+                        containerColor = ConstructoColors.SuccessGreen.copy(alpha = 0.25f),
+                        labelColor = ConstructoColors.SuccessGreen,
+                        leadingIconContentColor = ConstructoColors.SuccessGreen,
+                        disabledContainerColor = ConstructoColors.SuccessGreen.copy(alpha = 0.25f),
+                        disabledLabelColor = ConstructoColors.SuccessGreen,
+                        disabledLeadingIconContentColor = ConstructoColors.SuccessGreen
+                    )
+                )
+            } else {
+                Button(onClick = onConfirm, modifier = Modifier.fillMaxWidth()) {
+                    Icon(Icons.Filled.Check, contentDescription = null, modifier = Modifier.size(16.dp))
+                    Spacer(Modifier.width(6.dp))
+                    Text("Entendido")
+                }
             }
         }
     }

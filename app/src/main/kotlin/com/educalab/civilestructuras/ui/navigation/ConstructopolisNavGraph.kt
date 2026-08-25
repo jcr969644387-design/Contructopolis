@@ -50,7 +50,7 @@ fun ConstructopolisNavGraph(container: AppContainer) {
             }
         }
         composable(Routes.ONBOARDING) {
-            OnboardingScreen(onFinished = {
+            OnboardingScreen(container = container, onFinished = {
                 navController.navigate(Routes.PROFILE_SETUP) { popUpTo(Routes.ONBOARDING) { inclusive = true } }
             })
         }

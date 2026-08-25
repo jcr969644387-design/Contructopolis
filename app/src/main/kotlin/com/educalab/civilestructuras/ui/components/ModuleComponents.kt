@@ -205,7 +205,10 @@ fun DemandStateChip(state: MemberDemandState, modifier: Modifier = Modifier) {
     }
 }
 
-/** Avatar circular simple seleccionable por índice (colección local, ver ProfileScreen). */
+/**
+ * Avatar circular seleccionable por índice: 4 modelos de niño + 4 de niña,
+ * cada uno con su propio color de casco (ver [EngineerAvatarCanvas]).
+ */
 @Composable
 fun AvatarCircle(avatarId: Int, size: androidx.compose.ui.unit.Dp, selected: Boolean = false, modifier: Modifier = Modifier) {
     val palette = listOf(
@@ -213,15 +216,19 @@ fun AvatarCircle(avatarId: Int, size: androidx.compose.ui.unit.Dp, selected: Boo
         ConstructoColors.SuccessGreen, ConstructoColors.WoodBrown, ConstructoColors.ConcreteGray,
         ConstructoColors.DangerRed, ConstructoColors.SteelBlueLight
     )
-    val color = palette[avatarId % palette.size]
+    val helmetColor = palette[avatarId % palette.size]
     Box(
         modifier = modifier
             .size(size)
             .clip(CircleShape)
-            .background(color)
+            .background(helmetColor)
             .then(if (selected) Modifier.border(3.dp, ConstructoColors.CraneOrange, CircleShape) else Modifier),
         contentAlignment = Alignment.Center
     ) {
-        Icon(Icons.Filled.Engineering, contentDescription = "Avatar $avatarId", tint = Color.White, modifier = Modifier.size(size * 0.6f))
+        EngineerAvatarCanvas(
+            avatarId = avatarId,
+            helmetAccent = helmetColor,
+            modifier = Modifier.fillMaxSize(0.86f)
+        )
     }
 }
