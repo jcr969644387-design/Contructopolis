@@ -76,7 +76,15 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
         when (state.selectedTool) {
             BuilderTool.NODO -> {
                 if (design.nodes.any { it.position.x == x && it.position.y == y }) return
-                val newNode = StructureNodeModel(id = "n${nodeCounter++}", position = NodePosition(x, y))
+                val pos = NodePosition(x, y)
+                if (nodeWouldSitOnExistingMember(design, pos)) {
+                    _uiState.value = _uiState.value.copy(
+                        roleMismatchMessage = "No puedes colocar un nodo sobre una pieza ya construida. Borra esa pieza primero o elige otra posición."
+                    )
+                    container.feedbackPlayer.warn()
+                    return
+                }
+                val newNode = StructureNodeModel(id = "n${nodeCounter++}", position = pos)
                 updateDesign(design.copy(nodes = design.nodes + newNode))
                 container.feedbackPlayer.tap()
             }
@@ -205,26 +213,39 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
             }
         }
 
+        /** true si [p] cae exactamente sobre el segmento recto entre [a] y [b], sin contar los extremos. */
+        fun isPointStrictlyOnSegment(a: NodePosition, b: NodePosition, p: NodePosition): Boolean {
+            val dx = b.x - a.x
+            val dy = b.y - a.y
+            val lenSq = dx * dx + dy * dy
+            if (lenSq == 0) return false
+            val px = p.x - a.x
+            val py = p.y - a.y
+            val cross = dx * py - dy * px
+            if (cross != 0) return false
+            val dot = px * dx + py * dy
+            return dot in 1 until lenSq
+        }
+
         /**
          * true si algún otro nodo del diseño cae exactamente sobre el segmento recto entre
          * [a] y [b] (sin contar los propios extremos, excluidos por id en [excludeIds]). Evita
          * que una pieza "salte" por encima de un nodo intermedio en vez de conectarse a él.
          */
-        fun hasIntermediateNode(design: StructureDesign, a: NodePosition, b: NodePosition, excludeIds: Set<String>): Boolean {
-            val dx = b.x - a.x
-            val dy = b.y - a.y
-            val lenSq = dx * dx + dy * dy
-            if (lenSq == 0) return false
-            return design.nodes.any { node ->
-                if (node.id in excludeIds) return@any false
-                val px = node.position.x - a.x
-                val py = node.position.y - a.y
-                val cross = dx * py - dy * px
-                if (cross != 0) return@any false
-                val dot = px * dx + py * dy
-                dot in 1 until lenSq
+        fun hasIntermediateNode(design: StructureDesign, a: NodePosition, b: NodePosition, excludeIds: Set<String>): Boolean =
+            design.nodes.any { node -> node.id !in excludeIds && isPointStrictlyOnSegment(a, b, node.position) }
+
+        /**
+         * true si [pos] cae exactamente sobre el tramo recto de alguna pieza ya construida. Evita
+         * el caso inverso al anterior: agregar un nodo nuevo "escondido" bajo una pieza existente
+         * en vez de partirla en dos tramos reales.
+         */
+        fun nodeWouldSitOnExistingMember(design: StructureDesign, pos: NodePosition): Boolean =
+            design.members.any { m ->
+                val a = design.nodeById(m.nodeAId)?.position
+                val b = design.nodeById(m.nodeBId)?.position
+                a != null && b != null && isPointStrictlyOnSegment(a, b, pos)
             }
-        }
 
         fun orientationHint(role: MemberRole): String = when (role) {
             MemberRole.VIGA -> "Una viga debe ser horizontal: conecta dos nodos a la misma altura."
