@@ -21,74 +21,78 @@ fun NovaFaceCanvas(modifier: Modifier = Modifier) {
     Canvas(modifier = modifier) {
         val s = min(size.width, size.height)
         val cx = size.width / 2
-        val faceCy = size.height * 0.42f
+        val faceCy = size.height * 0.34f
         val skinTone = Color(0xFFF2C29A)
         val hairColor = Color(0xFF6B4226)
 
-        // Hombros con chaleco de seguridad (da la sensación de persona, no solo cabeza)
-        val shoulderTop = size.height * 0.74f
+        // Hombros con chaleco de seguridad (semicírculo INFERIOR: cae hacia
+        // abajo desde el cuello, en vez de subir como una cúpula).
+        val shoulderTop = faceCy + s * 0.32f
         drawArc(
             color = ConstructoColors.CraneOrange,
-            startAngle = 180f, sweepAngle = 180f, useCenter = true,
-            topLeft = Offset(cx - s * 0.60f, shoulderTop - s * 0.05f),
-            size = Size(s * 1.20f, s * 0.55f)
+            startAngle = 0f, sweepAngle = 180f, useCenter = true,
+            topLeft = Offset(cx - s * 0.525f, shoulderTop - s * 0.275f),
+            size = Size(s * 1.05f, s * 0.55f)
         )
+        // Cintas reflectantes del chaleco
+        drawLine(ConstructoColors.WarningYellow, Offset(cx - s * 0.30f, shoulderTop + s * 0.03f), Offset(cx - s * 0.06f, shoulderTop + s * 0.17f), strokeWidth = s * 0.045f)
+        drawLine(ConstructoColors.WarningYellow, Offset(cx + s * 0.30f, shoulderTop + s * 0.03f), Offset(cx + s * 0.06f, shoulderTop + s * 0.17f), strokeWidth = s * 0.045f)
+
         // Cuello
         drawRect(
             color = skinTone,
-            topLeft = Offset(cx - s * 0.09f, faceCy + s * 0.18f),
-            size = Size(s * 0.18f, s * 0.18f)
+            topLeft = Offset(cx - s * 0.09f, faceCy + s * 0.19f),
+            size = Size(s * 0.18f, s * 0.15f)
         )
-        // Cintas reflectantes del chaleco
-        drawLine(ConstructoColors.WarningYellow, Offset(cx - s * 0.38f, shoulderTop + s * 0.10f), Offset(cx - s * 0.10f, shoulderTop - s * 0.02f), strokeWidth = s * 0.045f)
-        drawLine(ConstructoColors.WarningYellow, Offset(cx + s * 0.38f, shoulderTop + s * 0.10f), Offset(cx + s * 0.10f, shoulderTop - s * 0.02f), strokeWidth = s * 0.045f)
 
-        // Orejas
-        drawCircle(color = skinTone, radius = s * 0.045f, center = Offset(cx - s * 0.29f, faceCy + s * 0.02f))
-        drawCircle(color = skinTone, radius = s * 0.045f, center = Offset(cx + s * 0.29f, faceCy + s * 0.02f))
+        // Orejas (dibujadas antes que la cara: solo asoma el borde exterior)
+        drawCircle(color = skinTone, radius = s * 0.045f, center = Offset(cx - s * 0.225f, faceCy))
+        drawCircle(color = skinTone, radius = s * 0.045f, center = Offset(cx + s * 0.225f, faceCy))
 
         // Cara
-        drawCircle(color = skinTone, radius = s * 0.30f, center = Offset(cx, faceCy))
+        drawCircle(color = skinTone, radius = s * 0.23f, center = Offset(cx, faceCy))
 
-        // Mechones de cabello asomando bajo el casco
-        drawArc(hairColor, startAngle = 140f, sweepAngle = 55f, useCenter = false, topLeft = Offset(cx - s * 0.31f, faceCy - s * 0.12f), size = Size(s * 0.18f, s * 0.18f), style = Stroke(width = s * 0.035f))
-        drawArc(hairColor, startAngle = -15f, sweepAngle = -55f, useCenter = false, topLeft = Offset(cx + s * 0.13f, faceCy - s * 0.12f), size = Size(s * 0.18f, s * 0.18f), style = Stroke(width = s * 0.035f))
+        // Mechones de cabello en las sienes
+        drawArc(hairColor, startAngle = 130f, sweepAngle = 60f, useCenter = false, topLeft = Offset(cx - s * 0.27f, faceCy - s * 0.10f), size = Size(s * 0.14f, s * 0.14f), style = Stroke(width = s * 0.03f))
+        drawArc(hairColor, startAngle = -10f, sweepAngle = -60f, useCenter = false, topLeft = Offset(cx + s * 0.13f, faceCy - s * 0.10f), size = Size(s * 0.14f, s * 0.14f), style = Stroke(width = s * 0.03f))
 
-        // Casco
+        // Casco: cúpula (semicírculo SUPERIOR) + ala/borde bien por encima de
+        // las cejas y los ojos, para que no se solapen (antes quedaba justo
+        // sobre los ojos y parecía unas gafas sobre una franja naranja).
         drawArc(
             color = ConstructoColors.CraneOrange,
             startAngle = 180f, sweepAngle = 180f, useCenter = true,
-            topLeft = Offset(cx - s * 0.34f, faceCy - s * 0.34f),
-            size = Size(s * 0.68f, s * 0.58f)
+            topLeft = Offset(cx - s * 0.275f, faceCy - s * 0.325f),
+            size = Size(s * 0.55f, s * 0.39f)
         )
         drawRect(
             color = ConstructoColors.CraneOrangeDark,
-            topLeft = Offset(cx - s * 0.36f, faceCy - s * 0.02f),
-            size = Size(s * 0.72f, s * 0.065f)
+            topLeft = Offset(cx - s * 0.30f, faceCy - s * 0.155f),
+            size = Size(s * 0.60f, s * 0.05f)
         )
 
-        // Cejas
-        drawLine(ConstructoColors.InkDark, Offset(cx - s * 0.20f, faceCy - s * 0.09f), Offset(cx - s * 0.08f, faceCy - s * 0.11f), strokeWidth = s * 0.018f)
-        drawLine(ConstructoColors.InkDark, Offset(cx + s * 0.08f, faceCy - s * 0.11f), Offset(cx + s * 0.20f, faceCy - s * 0.09f), strokeWidth = s * 0.018f)
+        // Cejas (entre el ala del casco y los ojos, sin tocar ninguno de los dos)
+        drawLine(ConstructoColors.InkDark, Offset(cx - s * 0.16f, faceCy - s * 0.095f), Offset(cx - s * 0.06f, faceCy - s * 0.085f), strokeWidth = s * 0.013f)
+        drawLine(ConstructoColors.InkDark, Offset(cx + s * 0.06f, faceCy - s * 0.085f), Offset(cx + s * 0.16f, faceCy - s * 0.095f), strokeWidth = s * 0.013f)
 
         // Ojos (esclera + iris)
-        val eyeY = faceCy - s * 0.01f
-        drawCircle(Color.White, radius = s * 0.07f, center = Offset(cx - s * 0.14f, eyeY))
-        drawCircle(Color.White, radius = s * 0.07f, center = Offset(cx + s * 0.14f, eyeY))
-        drawCircle(ConstructoColors.SteelBlue, radius = s * 0.04f, center = Offset(cx - s * 0.13f, eyeY))
-        drawCircle(ConstructoColors.SteelBlue, radius = s * 0.04f, center = Offset(cx + s * 0.15f, eyeY))
+        val eyeY = faceCy - s * 0.02f
+        drawCircle(Color.White, radius = s * 0.06f, center = Offset(cx - s * 0.12f, eyeY))
+        drawCircle(Color.White, radius = s * 0.06f, center = Offset(cx + s * 0.12f, eyeY))
+        drawCircle(ConstructoColors.SteelBlue, radius = s * 0.035f, center = Offset(cx - s * 0.11f, eyeY))
+        drawCircle(ConstructoColors.SteelBlue, radius = s * 0.035f, center = Offset(cx + s * 0.13f, eyeY))
 
         // Mejillas sonrosadas
-        drawCircle(ConstructoColors.CraneOrange.copy(alpha = 0.28f), radius = s * 0.055f, center = Offset(cx - s * 0.20f, faceCy + s * 0.12f))
-        drawCircle(ConstructoColors.CraneOrange.copy(alpha = 0.28f), radius = s * 0.055f, center = Offset(cx + s * 0.20f, faceCy + s * 0.12f))
+        drawCircle(ConstructoColors.CraneOrange.copy(alpha = 0.28f), radius = s * 0.045f, center = Offset(cx - s * 0.17f, faceCy + s * 0.10f))
+        drawCircle(ConstructoColors.CraneOrange.copy(alpha = 0.28f), radius = s * 0.045f, center = Offset(cx + s * 0.17f, faceCy + s * 0.10f))
 
         // Sonrisa
         drawArc(
             color = ConstructoColors.InkDark,
             startAngle = 20f, sweepAngle = 140f, useCenter = false,
-            topLeft = Offset(cx - s * 0.13f, faceCy + s * 0.05f),
-            size = Size(s * 0.26f, s * 0.18f),
-            style = Stroke(width = s * 0.028f)
+            topLeft = Offset(cx - s * 0.11f, faceCy + s * 0.04f),
+            size = Size(s * 0.22f, s * 0.15f),
+            style = Stroke(width = s * 0.025f)
         )
     }
 }

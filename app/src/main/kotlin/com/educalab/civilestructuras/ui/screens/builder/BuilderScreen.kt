@@ -177,7 +177,7 @@ private fun goalDescription(goal: ChallengeGoal): String = when (goal.type) {
     ChallengeGoalType.ALTURA_MINIMA -> "Alcanza una altura mínima de ${goal.value}m."
     ChallengeGoalType.PRESUPUESTO_MAXIMO -> "No superes ${goal.value} monedas de presupuesto."
     ChallengeGoalType.RESISTIR_CARGA_LATERAL -> "Tu estructura debe resistir una carga lateral de ${goal.value}."
-    ChallengeGoalType.TRIANGULACION_MINIMA -> "Usa al menos ${goal.value} diagonales de triangulación."
+    ChallengeGoalType.TRIANGULACION_MINIMA -> "Al menos el ${goal.value}% de tus piezas debe ser diagonales de triangulación."
     ChallengeGoalType.PESO_MAXIMO -> "No superes un peso total de ${goal.value}."
     ChallengeGoalType.ESTABILIDAD_MINIMA -> "Logra una estabilidad mínima del ${goal.value}%."
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -158,7 +159,7 @@ private fun MaterialSwatch(label: String, color: Color) {
         Box(
             modifier = Modifier
                 .size(64.dp)
-                .background(color, shape = CircleShape)
+                .background(color, shape = RoundedCornerShape(10.dp))
         )
         Spacer(Modifier.height(6.dp))
         Text(label, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
