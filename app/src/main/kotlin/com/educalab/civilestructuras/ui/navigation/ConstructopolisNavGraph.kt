@@ -73,7 +73,17 @@ fun ConstructopolisNavGraph(container: AppContainer) {
         composable(Routes.CONCEPTS) {
             ConceptsScreen(container, onAllConceptsConfirmed = { navController.navigate(Routes.MATERIALS) })
         }
-        composable(Routes.MATERIALS) { MaterialsScreen(container) }
+        composable(Routes.MATERIALS) {
+            MaterialsScreen(
+                container,
+                onAllMaterialsConfirmed = {
+                    navController.navigate(Routes.HOME) {
+                        popUpTo(Routes.HOME) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                }
+            )
+        }
         composable(Routes.BLUEPRINTS) { BlueprintsScreen(container) }
         composable(Routes.PROFILE) { ProfileScreen(container, onBack = { navController.popBackStack() }) }
         composable(

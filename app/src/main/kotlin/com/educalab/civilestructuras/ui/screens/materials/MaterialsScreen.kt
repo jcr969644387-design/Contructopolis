@@ -36,7 +36,7 @@ import com.educalab.civilestructuras.viewmodel.MaterialsViewModel
 import com.educalab.civilestructuras.viewmodel.ProfileViewModel
 
 @Composable
-fun MaterialsScreen(container: AppContainer) {
+fun MaterialsScreen(container: AppContainer, onAllMaterialsConfirmed: () -> Unit) {
     val viewModel: MaterialsViewModel = viewModel(factory = GenericViewModelFactory({ MaterialsViewModel(it) }, container))
     val profileViewModel: ProfileViewModel = viewModel(factory = GenericViewModelFactory({ ProfileViewModel(it) }, container))
     val materials by viewModel.materials.collectAsState()
@@ -51,11 +51,13 @@ fun MaterialsScreen(container: AppContainer) {
 
     if (showReadyDialog) {
         AlertDialog(
-            onDismissRequest = { showReadyDialog = false },
+            onDismissRequest = { showReadyDialog = false; onAllMaterialsConfirmed() },
             icon = { Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = ConstructoColors.SuccessGreen) },
             title = { Text("¡Ya puedes empezar a construir!") },
-            text = { Text("Leíste los conceptos y los 3 materiales. Vigas ya está desbloqueado: vuelve a Inicio y empieza a construir.") },
-            confirmButton = { TextButton(onClick = { showReadyDialog = false }) { Text("¡Vamos!") } }
+            text = { Text("Leíste los conceptos y los 3 materiales. Vigas ya está desbloqueado en el Taller.") },
+            confirmButton = {
+                TextButton(onClick = { showReadyDialog = false; onAllMaterialsConfirmed() }) { Text("¡Vamos!") }
+            }
         )
     }
 
