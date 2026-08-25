@@ -231,3 +231,27 @@ fun AvatarCircle(avatarId: Int, size: androidx.compose.ui.unit.Dp, selected: Boo
         )
     }
 }
+
+/**
+ * Selector fijo de los 8 avatares (4 niño arriba, 4 niña debajo), sin desplazamiento:
+ * todos son visibles a la vez para que no se pueda pasar por alto ningún modelo.
+ */
+@Composable
+fun AvatarGridPicker(selectedId: Int, onSelect: (Int) -> Unit, circleSize: androidx.compose.ui.unit.Dp = 56.dp, modifier: Modifier = Modifier) {
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            for (id in 0 until 4) {
+                Box(modifier = Modifier.clip(CircleShape).clickable { onSelect(id) }) {
+                    AvatarCircle(avatarId = id, size = circleSize, selected = id == selectedId)
+                }
+            }
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            for (id in 4 until 8) {
+                Box(modifier = Modifier.clip(CircleShape).clickable { onSelect(id) }) {
+                    AvatarCircle(avatarId = id, size = circleSize, selected = id == selectedId)
+                }
+            }
+        }
+    }
+}

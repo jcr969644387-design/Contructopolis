@@ -6,25 +6,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import com.educalab.civilestructuras.ui.theme.ConstructoColors
 import kotlin.math.min
 
 /** Una de las 8 combinaciones de avatar (4 niño + 4 niña) que puede elegir el jugador. */
-private data class AvatarSpec(val skinTone: Color, val hairColor: Color, val isGirl: Boolean)
+private data class AvatarSpec(val skinTone: Color, val hairColor: Color, val shirtColor: Color, val isGirl: Boolean)
 
 private val AVATAR_SPECS = listOf(
     // Niños (0-3)
-    AvatarSpec(Color(0xFFF2C29A), Color(0xFF1A1A1A), isGirl = false),
-    AvatarSpec(Color(0xFFE8B382), Color(0xFF3B2A1E), isGirl = false),
-    AvatarSpec(Color(0xFFC68642), Color(0xFFD9A441), isGirl = false),
-    AvatarSpec(Color(0xFF8D5524), Color(0xFFB33A2E), isGirl = false),
+    AvatarSpec(Color(0xFFF2C29A), Color(0xFF1A1A1A), ConstructoColors.SteelBlue, isGirl = false),
+    AvatarSpec(Color(0xFFE8B382), Color(0xFF3B2A1E), ConstructoColors.CraneOrange, isGirl = false),
+    AvatarSpec(Color(0xFFC68642), Color(0xFFD9A441), ConstructoColors.SuccessGreen, isGirl = false),
+    AvatarSpec(Color(0xFF8D5524), Color(0xFFB33A2E), ConstructoColors.SteelBlueLight, isGirl = false),
     // Niñas (4-7)
-    AvatarSpec(Color(0xFFE8B382), Color(0xFF3B2A1E), isGirl = true),
-    AvatarSpec(Color(0xFFF2C29A), Color(0xFF1A1A1A), isGirl = true),
-    AvatarSpec(Color(0xFF8D5524), Color(0xFFD9A441), isGirl = true),
-    AvatarSpec(Color(0xFFC68642), Color(0xFFB33A2E), isGirl = true)
+    AvatarSpec(Color(0xFFE8B382), Color(0xFF3B2A1E), ConstructoColors.WarningYellow, isGirl = true),
+    AvatarSpec(Color(0xFFF2C29A), Color(0xFF1A1A1A), ConstructoColors.DangerRed, isGirl = true),
+    AvatarSpec(Color(0xFF8D5524), Color(0xFFD9A441), ConstructoColors.WoodBrown, isGirl = true),
+    AvatarSpec(Color(0xFFC68642), Color(0xFFB33A2E), ConstructoColors.ConcreteGray, isGirl = true)
 )
 
 /** true si el avatar [avatarId] es uno de los 4 modelos de niña (para elegir "Ingeniera" vs "Ingeniero"). */
@@ -65,18 +66,29 @@ fun EngineerAvatarCanvas(avatarId: Int, modifier: Modifier = Modifier) {
             topLeft = Offset(cx + s * 0.18f, cy - s * 0.20f), size = Size(s * 0.22f, s * 0.22f), style = Stroke(width = s * 0.05f)
         )
 
-        // Ala del casco: siempre blanca (con borde oscuro) para que resalte sobre cualquier color de fondo
-        drawRect(
-            color = Color.White,
-            topLeft = Offset(cx - s * 0.38f, cy - s * 0.30f),
-            size = Size(s * 0.76f, s * 0.09f)
-        )
-        drawRect(
-            color = ConstructoColors.InkDark,
-            topLeft = Offset(cx - s * 0.38f, cy - s * 0.30f),
-            size = Size(s * 0.76f, s * 0.09f),
-            style = Stroke(width = s * 0.018f)
-        )
+        // Cuerpo/hombros: se dibuja encima de la base de la cara para marcar el cuello,
+        // como un retrato de busto dentro del círculo del avatar.
+        val neckY = faceCenter.y + s * 0.26f
+        val shoulderPath = Path().apply {
+            moveTo(cx - s * 0.16f, neckY)
+            lineTo(cx - s * 0.46f, size.height)
+            lineTo(cx + s * 0.46f, size.height)
+            lineTo(cx + s * 0.16f, neckY)
+            close()
+        }
+        drawPath(shoulderPath, color = spec.shirtColor)
+
+        // Casco: domo + ala, siempre blanco (con borde oscuro) para que resalte sobre cualquier fondo
+        val brimTopLeft = Offset(cx - s * 0.38f, cy - s * 0.30f)
+        val brimSize = Size(s * 0.76f, s * 0.09f)
+        val domeSize = Size(s * 0.62f, s * 0.32f)
+        val domeTopLeft = Offset(cx - domeSize.width / 2f, brimTopLeft.y - domeSize.height / 2f)
+
+        drawArc(color = Color.White, startAngle = 180f, sweepAngle = 180f, useCenter = true, topLeft = domeTopLeft, size = domeSize)
+        drawArc(color = ConstructoColors.InkDark, startAngle = 180f, sweepAngle = 180f, useCenter = false, topLeft = domeTopLeft, size = domeSize, style = Stroke(width = s * 0.018f))
+
+        drawRect(color = Color.White, topLeft = brimTopLeft, size = brimSize)
+        drawRect(color = ConstructoColors.InkDark, topLeft = brimTopLeft, size = brimSize, style = Stroke(width = s * 0.018f))
 
         // Ojos
         drawCircle(ConstructoColors.InkDark, radius = s * 0.045f, center = Offset(cx - s * 0.13f, cy - s * 0.02f))

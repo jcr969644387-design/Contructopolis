@@ -89,13 +89,18 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
                 } else if (pendingId != tappedNode.id) {
                     val startNode = design.nodeById(pendingId)
                     val material = state.selectedMaterial
-                    if (material == null) {
-                        _uiState.value = _uiState.value.copy(
-                            pendingMemberStartNodeId = null,
-                            roleMismatchMessage = "Elige un material (madera, acero o concreto) antes de construir una pieza."
-                        )
+                    val rejectionMessage = when {
+                        startNode == null -> orientationHint(state.selectedRole)
+                        material == null -> "Elige un material (madera, acero o concreto) antes de construir una pieza."
+                        !isValidOrientation(startNode.position, tappedNode.position, state.selectedRole) -> orientationHint(state.selectedRole)
+                        hasIntermediateNode(design, startNode.position, tappedNode.position, setOf(pendingId, tappedNode.id)) ->
+                            "Hay un nodo en medio: conecta primero con ese nodo, no puedes saltarlo."
+                        else -> null
+                    }
+                    if (rejectionMessage != null) {
+                        _uiState.value = _uiState.value.copy(pendingMemberStartNodeId = null, roleMismatchMessage = rejectionMessage)
                         container.feedbackPlayer.warn()
-                    } else if (startNode != null && isValidOrientation(startNode.position, tappedNode.position, state.selectedRole)) {
+                    } else if (startNode != null && material != null) {
                         val newMember = StructureMemberModel(
                             id = "m${memberCounter++}", nodeAId = pendingId, nodeBId = tappedNode.id,
                             material = material, role = state.selectedRole
@@ -103,12 +108,6 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
                         updateDesign(design.copy(members = design.members + newMember))
                         _uiState.value = _uiState.value.copy(pendingMemberStartNodeId = null)
                         container.feedbackPlayer.confirm()
-                    } else {
-                        _uiState.value = _uiState.value.copy(
-                            pendingMemberStartNodeId = null,
-                            roleMismatchMessage = orientationHint(state.selectedRole)
-                        )
-                        container.feedbackPlayer.warn()
                     }
                 }
             }
@@ -203,6 +202,27 @@ class BuilderViewModel(private val container: AppContainer, private val challeng
                 MemberRole.VIGA -> dy == 0 && dx != 0
                 MemberRole.COLUMNA -> dx == 0 && dy != 0
                 MemberRole.DIAGONAL -> dx != 0 && dy != 0
+            }
+        }
+
+        /**
+         * true si algún otro nodo del diseño cae exactamente sobre el segmento recto entre
+         * [a] y [b] (sin contar los propios extremos, excluidos por id en [excludeIds]). Evita
+         * que una pieza "salte" por encima de un nodo intermedio en vez de conectarse a él.
+         */
+        fun hasIntermediateNode(design: StructureDesign, a: NodePosition, b: NodePosition, excludeIds: Set<String>): Boolean {
+            val dx = b.x - a.x
+            val dy = b.y - a.y
+            val lenSq = dx * dx + dy * dy
+            if (lenSq == 0) return false
+            return design.nodes.any { node ->
+                if (node.id in excludeIds) return@any false
+                val px = node.position.x - a.x
+                val py = node.position.y - a.y
+                val cross = dx * py - dy * px
+                if (cross != 0) return@any false
+                val dot = px * dx + py * dy
+                dot in 1 until lenSq
             }
         }
 

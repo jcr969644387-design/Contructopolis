@@ -14,7 +14,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -387,30 +389,33 @@ private fun BuilderToolbar(
     onClearAll: () -> Unit
 ) {
     Column(Modifier.background(MaterialTheme.colorScheme.surface).padding(10.dp)) {
-        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Row(
+            modifier = Modifier.horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
             ToolChip("Nodo", Icons.Filled.RadioButtonChecked, selectedTool == BuilderTool.NODO) { onSelectTool(BuilderTool.NODO) }
             ToolChip("Pieza", Icons.Filled.Timeline, selectedTool == BuilderTool.MIEMBRO) { onSelectTool(BuilderTool.MIEMBRO) }
             ToolChip("Carga", Icons.Filled.ArrowDownward, selectedTool == BuilderTool.CARGA) { onSelectTool(BuilderTool.CARGA) }
             ToolChip("Borrar", Icons.Filled.Delete, selectedTool == BuilderTool.BORRAR) { onSelectTool(BuilderTool.BORRAR) }
-        }
-        Spacer(Modifier.height(6.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             AssistChip(
                 onClick = onClearAll,
                 leadingIcon = { Icon(Icons.Filled.DeleteSweep, contentDescription = null, modifier = Modifier.size(16.dp)) },
-                label = { Text("Borrar todo") }
+                label = { Text("Borrar todo", maxLines = 1, softWrap = false) }
             )
         }
         if (selectedTool == BuilderTool.MIEMBRO) {
             Spacer(Modifier.height(8.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            Row(
+                modifier = Modifier.horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
                 MaterialType.values().forEach { mat ->
                     val allowed = mat in allowedMaterials
                     FilterChip(
                         selected = mat == selectedMaterial,
                         enabled = allowed,
                         onClick = { onSelectMaterial(mat) },
-                        label = { Text(if (allowed) mat.name else "${mat.name} (no permitido)") }
+                        label = { Text(mat.name, maxLines = 1, softWrap = false) }
                     )
                 }
             }
@@ -423,9 +428,12 @@ private fun BuilderToolbar(
                 )
             }
             Spacer(Modifier.height(6.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            Row(
+                modifier = Modifier.horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
                 MemberRole.values().forEach { role ->
-                    FilterChip(selected = role == selectedRole, onClick = { onSelectRole(role) }, label = { Text(role.name) })
+                    FilterChip(selected = role == selectedRole, onClick = { onSelectRole(role) }, label = { Text(role.name, maxLines = 1, softWrap = false) })
                 }
             }
         }
@@ -447,7 +455,7 @@ private fun ToolChip(label: String, icon: androidx.compose.ui.graphics.vector.Im
         selected = selected,
         onClick = onClick,
         leadingIcon = { Icon(icon, contentDescription = null, modifier = Modifier.size(16.dp)) },
-        label = { Text(label) }
+        label = { Text(label, maxLines = 1, softWrap = false) }
     )
 }
 

@@ -1,21 +1,15 @@
 package com.educalab.civilestructuras.ui.screens.onboarding
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.educalab.civilestructuras.data.local.entity.UserProfileEntity
-import com.educalab.civilestructuras.ui.components.AvatarCircle
+import com.educalab.civilestructuras.ui.components.AvatarGridPicker
 import com.educalab.civilestructuras.ui.theme.ConstructoColors
 import com.educalab.civilestructuras.ui.theme.ConstructopolisTheme
 
@@ -58,17 +52,7 @@ fun ProfileSetupScreen(onContinue: (alias: String, avatarId: Int) -> Unit) {
 
                 Text("Elige tu avatar", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.height(8.dp))
-                LazyRow(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    items((0 until UserProfileEntity.AVATAR_COUNT).toList()) { id ->
-                        Box(
-                            modifier = Modifier
-                                .clip(CircleShape)
-                                .clickable { avatarId = id }
-                        ) {
-                            AvatarCircle(avatarId = id, size = 56.dp, selected = id == avatarId)
-                        }
-                    }
-                }
+                AvatarGridPicker(selectedId = avatarId, onSelect = { avatarId = it })
 
                 Spacer(Modifier.height(24.dp))
                 Text("Tu alias", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
