@@ -37,7 +37,7 @@ fun BlueprintsScreen(container: AppContainer) {
     val state by viewModel.uiState.collectAsState()
     var tab by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(0) }
 
-    Column(Modifier.fillMaxSize()) {
+    Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding()) {
         Text(
             "Planos y Logros",
             style = MaterialTheme.typography.headlineMedium,
@@ -115,7 +115,7 @@ private fun BadgeTile(badge: BadgeEntity, unlocked: Boolean) {
                 if (unlocked) badge.description else "Sigue jugando para descubrirla",
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                color = ConstructoColors.InkDark.copy(alpha = 0.65f)
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f)
             )
         }
     }

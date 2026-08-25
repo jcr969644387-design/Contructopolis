@@ -9,6 +9,8 @@
         Toda la persistencia usa el almacenamiento privado de la app (Room / DataStore).
     -->
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".ConstructopolisApp"
         android:allowBackup="true"

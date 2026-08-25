@@ -42,14 +42,14 @@ fun ChapterListScreen(
     val challenges by remember(chapter) { viewModel.challengesFor(chapter) }.collectAsState()
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding(),
         contentPadding = PaddingValues(20.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         item {
             Text(Routes.titleForChapter(chapter), style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             challenges.firstOrNull()?.challenge?.briefing?.let {
-                Text(it, style = MaterialTheme.typography.bodyMedium, color = ConstructoColors.InkDark.copy(alpha = 0.7f))
+                Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f))
             }
             Spacer(Modifier.height(6.dp))
         }

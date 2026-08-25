@@ -60,7 +60,7 @@ fun HomeScreen(
     Box(Modifier.fillMaxSize()) {
         BlueprintGridBackground(modifier = Modifier.fillMaxSize())
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().navigationBarsPadding(),
             contentPadding = PaddingValues(bottom = 32.dp)
         ) {
             item { HomeHeader(alias = state.alias, avatarId = state.avatarId, onProfileClick = onProfileClick) }
@@ -120,6 +120,7 @@ private fun HomeHeader(alias: String, avatarId: Int, onProfileClick: () -> Unit)
         modifier = Modifier
             .fillMaxWidth()
             .background(Brush.horizontalGradient(listOf(ConstructoColors.BlueprintNavy, ConstructoColors.SteelBlue)))
+            .statusBarsPadding()
             .padding(20.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {

@@ -83,7 +83,7 @@ private val CONCEPTS = listOf(
 @Composable
 fun ConceptsScreen() {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding(),
         contentPadding = PaddingValues(20.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -92,7 +92,7 @@ fun ConceptsScreen() {
             Text(
                 "Toca cada tarjeta para ver un ejemplo de la vida real.",
                 style = MaterialTheme.typography.bodyMedium,
-                color = ConstructoColors.InkDark.copy(alpha = 0.7f)
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
             )
             Spacer(Modifier.height(4.dp))
         }
@@ -140,7 +140,7 @@ private fun ConceptCardItem(concept: ConceptCard) {
                     concept.explanation,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
-                    color = ConstructoColors.InkDark.copy(alpha = 0.8f)
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
                 )
             }
         }

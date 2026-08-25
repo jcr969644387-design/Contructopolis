@@ -27,7 +27,9 @@ fun SplashScreen(onFinished: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Brush.verticalGradient(listOf(ConstructoColors.BlueprintNavy, ConstructoColors.SteelBlue))),
+            .background(Brush.verticalGradient(listOf(ConstructoColors.BlueprintNavy, ConstructoColors.SteelBlue)))
+            .statusBarsPadding()
+            .navigationBarsPadding(),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {

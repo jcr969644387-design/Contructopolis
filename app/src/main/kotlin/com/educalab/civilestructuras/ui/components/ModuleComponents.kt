@@ -180,7 +180,7 @@ fun AvatarCircle(avatarId: Int, size: androidx.compose.ui.unit.Dp, selected: Boo
             .size(size)
             .clip(CircleShape)
             .background(color)
-            .then(if (selected) Modifier.border(3.dp, ConstructoColors.InkDark, CircleShape) else Modifier),
+            .then(if (selected) Modifier.border(3.dp, ConstructoColors.CraneOrange, CircleShape) else Modifier),
         contentAlignment = Alignment.Center
     ) {
         Icon(Icons.Filled.Engineering, contentDescription = "Avatar $avatarId", tint = Color.White, modifier = Modifier.size(size * 0.6f))

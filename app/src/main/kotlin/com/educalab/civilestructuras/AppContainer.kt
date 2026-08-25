@@ -4,6 +4,7 @@ import android.content.Context
 import com.educalab.civilestructuras.data.local.ConstructopolisDatabase
 import com.educalab.civilestructuras.data.local.Seeder
 import com.educalab.civilestructuras.data.repository.*
+import com.educalab.civilestructuras.util.FeedbackPlayer
 
 /**
  * Contenedor de dependencias manual. Se evita deliberadamente un framework
@@ -14,6 +15,7 @@ import com.educalab.civilestructuras.data.repository.*
 class AppContainer(context: Context) {
     private val database = ConstructopolisDatabase.getInstance(context)
     val seeder = Seeder(context, database)
+    val feedbackPlayer = FeedbackPlayer(context)
 
     val profileRepository = ProfileRepository(database.profileDao())
     val materialRepository = MaterialRepository(database.materialDao())

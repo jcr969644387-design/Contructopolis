@@ -21,6 +21,7 @@ import com.educalab.civilestructuras.ui.screens.concepts.ConceptsScreen
 import com.educalab.civilestructuras.ui.screens.home.HomeScreen
 import com.educalab.civilestructuras.ui.screens.materials.MaterialsScreen
 import com.educalab.civilestructuras.ui.screens.onboarding.OnboardingScreen
+import com.educalab.civilestructuras.ui.screens.onboarding.ProfileSetupScreen
 import com.educalab.civilestructuras.ui.screens.profile.ProfileScreen
 import com.educalab.civilestructuras.ui.screens.splash.SplashScreen
 import kotlinx.coroutines.launch
@@ -41,11 +42,16 @@ fun ConstructopolisNavGraph(container: AppContainer) {
             }
         }
         composable(Routes.ONBOARDING) {
+            OnboardingScreen(onFinished = {
+                navController.navigate(Routes.PROFILE_SETUP) { popUpTo(Routes.ONBOARDING) { inclusive = true } }
+            })
+        }
+        composable(Routes.PROFILE_SETUP) {
             val scope = androidx.compose.runtime.rememberCoroutineScope()
-            OnboardingScreen(onFinished = { alias, avatarId ->
+            ProfileSetupScreen(onContinue = { alias, avatarId ->
                 scope.launch {
                     container.profileRepository.completeOnboarding(alias, avatarId)
-                    navController.navigate(Routes.HOME) { popUpTo(Routes.ONBOARDING) { inclusive = true } }
+                    navController.navigate(Routes.HOME) { popUpTo(Routes.PROFILE_SETUP) { inclusive = true } }
                 }
             })
         }

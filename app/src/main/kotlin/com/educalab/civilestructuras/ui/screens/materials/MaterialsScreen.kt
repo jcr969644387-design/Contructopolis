@@ -35,7 +35,7 @@ fun MaterialsScreen(container: AppContainer) {
     val materials by viewModel.materials.collectAsState()
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding(),
         contentPadding = PaddingValues(20.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
@@ -44,7 +44,7 @@ fun MaterialsScreen(container: AppContainer) {
             Text(
                 "Cada material tiene resistencia, peso y costo distintos. Elige con cabeza.",
                 style = MaterialTheme.typography.bodyMedium,
-                color = ConstructoColors.InkDark.copy(alpha = 0.7f)
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
             )
         }
         items(materials) { material -> MaterialCard(material) }
@@ -92,6 +92,6 @@ private fun StatPill(icon: androidx.compose.ui.graphics.vector.ImageVector, labe
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Icon(icon, contentDescription = label, tint = color, modifier = Modifier.size(22.dp))
         Text(value, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-        Text(label, style = MaterialTheme.typography.labelMedium, color = ConstructoColors.InkDark.copy(alpha = 0.6f))
+        Text(label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
     }
 }

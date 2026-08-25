@@ -47,8 +47,9 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
     }
     val challenge = state.challenge!!
     var showBriefing by rememberSaveable(challengeId) { mutableStateOf(true) }
+    var showClearAllConfirm by remember { mutableStateOf(false) }
 
-    Column(Modifier.fillMaxSize()) {
+    Column(Modifier.fillMaxSize().navigationBarsPadding()) {
         BuilderTopBar(
             title = challenge.title,
             budget = challenge.maxBudget,
@@ -69,6 +70,13 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
                 pendingStartNodeId = state.pendingMemberStartNodeId,
                 onCellTap = viewModel::onGridTap
             )
+            state.roleMismatchMessage?.let { message ->
+                RoleMismatchBanner(message = message, modifier = Modifier.align(Alignment.TopCenter).padding(12.dp))
+                LaunchedEffect(message) {
+                    kotlinx.coroutines.delay(2200)
+                    viewModel.dismissRoleMismatch()
+                }
+            }
         }
         BuilderToolbar(
             selectedTool = state.selectedTool,
@@ -79,7 +87,8 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
             onSelectMaterial = viewModel::selectMaterial,
             onSelectRole = viewModel::selectRole,
             onSave = viewModel::save,
-            onSimulate = viewModel::simulate
+            onSimulate = viewModel::simulate,
+            onClearAll = { showClearAllConfirm = true }
         )
         state.lastOutcome?.let { outcome ->
             SimulationResultPanel(result = outcome.result, challenge = challenge)
@@ -88,6 +97,19 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
 
     if (showBriefing) {
         ChallengeBriefingDialog(challenge = challenge, onDismiss = { showBriefing = false })
+    }
+
+    if (showClearAllConfirm) {
+        AlertDialog(
+            onDismissRequest = { showClearAllConfirm = false },
+            icon = { Icon(Icons.Filled.DeleteSweep, contentDescription = null, tint = ConstructoColors.DangerRed) },
+            title = { Text("¿Borrar toda la construcción?") },
+            text = { Text("Se eliminarán todos los nodos, piezas y cargas que agregaste. Los apoyos y cargas propios del reto no se pierden.") },
+            confirmButton = {
+                TextButton(onClick = { viewModel.clearAll(); showClearAllConfirm = false }) { Text("Borrar todo") }
+            },
+            dismissButton = { TextButton(onClick = { showClearAllConfirm = false }) { Text("Cancelar") } }
+        )
     }
 
     if (state.savedNotice) {
@@ -113,6 +135,7 @@ private fun BuilderTopBar(title: String, budget: Int, onBack: () -> Unit, onShow
         modifier = Modifier
             .fillMaxWidth()
             .background(ConstructoColors.SteelBlue)
+            .statusBarsPadding()
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -239,6 +262,21 @@ private fun BuilderGridCanvas(
     }
 }
 
+@Composable
+private fun RoleMismatchBanner(message: String, modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .clip(RoundedCornerShape(10.dp))
+            .background(ConstructoColors.DangerRed.copy(alpha = 0.92f))
+            .padding(horizontal = 14.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(Icons.Filled.Info, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
+        Spacer(Modifier.width(8.dp))
+        Text(message, style = MaterialTheme.typography.bodyMedium, color = Color.White)
+    }
+}
+
 private fun colorForDemand(state: MemberDemandState?): Color = when (state) {
     MemberDemandState.SIN_CARGA -> ConstructoColors.DemandNone
     MemberDemandState.BAJA -> ConstructoColors.DemandLow
@@ -258,7 +296,8 @@ private fun BuilderToolbar(
     onSelectMaterial: (MaterialType) -> Unit,
     onSelectRole: (MemberRole) -> Unit,
     onSave: () -> Unit,
-    onSimulate: () -> Unit
+    onSimulate: () -> Unit,
+    onClearAll: () -> Unit
 ) {
     Column(Modifier.background(MaterialTheme.colorScheme.surface).padding(10.dp)) {
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -266,6 +305,14 @@ private fun BuilderToolbar(
             ToolChip("Pieza", Icons.Filled.Timeline, selectedTool == BuilderTool.MIEMBRO) { onSelectTool(BuilderTool.MIEMBRO) }
             ToolChip("Carga", Icons.Filled.ArrowDownward, selectedTool == BuilderTool.CARGA) { onSelectTool(BuilderTool.CARGA) }
             ToolChip("Borrar", Icons.Filled.Delete, selectedTool == BuilderTool.BORRAR) { onSelectTool(BuilderTool.BORRAR) }
+        }
+        Spacer(Modifier.height(6.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            AssistChip(
+                onClick = onClearAll,
+                leadingIcon = { Icon(Icons.Filled.DeleteSweep, contentDescription = null, modifier = Modifier.size(16.dp)) },
+                label = { Text("Borrar todo") }
+            )
         }
         if (selectedTool == BuilderTool.MIEMBRO) {
             Spacer(Modifier.height(8.dp))

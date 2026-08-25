@@ -4,6 +4,7 @@ package com.educalab.civilestructuras.ui.navigation
 object Routes {
     const val SPLASH = "splash"
     const val ONBOARDING = "onboarding"
+    const val PROFILE_SETUP = "profile_setup"
     const val HOME = "home"
     const val CONCEPTS = "concepts"
     const val MATERIALS = "materials"
