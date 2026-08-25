@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,9 +46,15 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
         return
     }
     val challenge = state.challenge!!
+    var showBriefing by rememberSaveable(challengeId) { mutableStateOf(true) }
 
     Column(Modifier.fillMaxSize()) {
-        BuilderTopBar(title = challenge.title, budget = challenge.maxBudget, onBack = onBack)
+        BuilderTopBar(
+            title = challenge.title,
+            budget = challenge.maxBudget,
+            onBack = onBack,
+            onShowBriefing = { showBriefing = true }
+        )
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -79,6 +86,10 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
         }
     }
 
+    if (showBriefing) {
+        ChallengeBriefingDialog(challenge = challenge, onDismiss = { showBriefing = false })
+    }
+
     if (state.savedNotice) {
         LaunchedEffect(Unit) {
             kotlinx.coroutines.delay(1200)
@@ -97,7 +108,7 @@ fun BuilderScreen(container: AppContainer, challengeId: String, onBack: () -> Un
 }
 
 @Composable
-private fun BuilderTopBar(title: String, budget: Int, onBack: () -> Unit) {
+private fun BuilderTopBar(title: String, budget: Int, onBack: () -> Unit, onShowBriefing: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -110,7 +121,42 @@ private fun BuilderTopBar(title: String, budget: Int, onBack: () -> Unit) {
             Text(title, style = MaterialTheme.typography.titleMedium, color = Color.White, fontWeight = FontWeight.Bold)
             Text("Presupuesto: $budget monedas", style = MaterialTheme.typography.labelMedium, color = ConstructoColors.WarningYellow)
         }
+        IconButton(onClick = onShowBriefing) { Icon(Icons.Filled.Info, contentDescription = "Ver misión", tint = Color.White) }
     }
+}
+
+@Composable
+private fun ChallengeBriefingDialog(challenge: StructureChallengeModel, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        icon = { Icon(Icons.Filled.Info, contentDescription = null, tint = ConstructoColors.SteelBlue) },
+        title = { Text(challenge.title, fontWeight = FontWeight.Bold) },
+        text = {
+            Column {
+                Text(challenge.briefing, style = MaterialTheme.typography.bodyMedium)
+                if (challenge.goals.isNotEmpty()) {
+                    Spacer(Modifier.height(12.dp))
+                    Text("Objetivos:", style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
+                    Spacer(Modifier.height(4.dp))
+                    challenge.goals.forEach { goal ->
+                        Text("• ${goalDescription(goal)}", style = MaterialTheme.typography.bodyMedium)
+                    }
+                }
+                Spacer(Modifier.height(8.dp))
+                Text("Presupuesto: ${challenge.maxBudget} monedas", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
+            }
+        },
+        confirmButton = { TextButton(onClick = onDismiss) { Text("¡Entendido, a construir!") } }
+    )
+}
+
+private fun goalDescription(goal: ChallengeGoal): String = when (goal.type) {
+    ChallengeGoalType.ALTURA_MINIMA -> "Alcanza una altura mínima de ${goal.value}m."
+    ChallengeGoalType.PRESUPUESTO_MAXIMO -> "No superes ${goal.value} monedas de presupuesto."
+    ChallengeGoalType.RESISTIR_CARGA_LATERAL -> "Tu estructura debe resistir una carga lateral de ${goal.value}."
+    ChallengeGoalType.TRIANGULACION_MINIMA -> "Usa al menos ${goal.value} diagonales de triangulación."
+    ChallengeGoalType.PESO_MAXIMO -> "No superes un peso total de ${goal.value}."
+    ChallengeGoalType.ESTABILIDAD_MINIMA -> "Logra una estabilidad mínima del ${goal.value}%."
 }
 
 @Composable

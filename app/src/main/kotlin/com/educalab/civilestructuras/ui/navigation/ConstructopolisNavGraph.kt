@@ -42,9 +42,9 @@ fun ConstructopolisNavGraph(container: AppContainer) {
         }
         composable(Routes.ONBOARDING) {
             val scope = androidx.compose.runtime.rememberCoroutineScope()
-            OnboardingScreen(onFinished = {
+            OnboardingScreen(onFinished = { alias, avatarId ->
                 scope.launch {
-                    container.profileRepository.completeOnboarding()
+                    container.profileRepository.completeOnboarding(alias, avatarId)
                     navController.navigate(Routes.HOME) { popUpTo(Routes.ONBOARDING) { inclusive = true } }
                 }
             })

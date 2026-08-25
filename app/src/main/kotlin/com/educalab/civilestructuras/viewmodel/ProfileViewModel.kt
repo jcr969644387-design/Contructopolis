@@ -23,5 +23,4 @@ class ProfileViewModel(private val container: AppContainer) : ViewModel() {
     fun updateAvatar(avatarId: Int) = viewModelScope.launch { container.profileRepository.updateAvatar(avatarId) }
     fun setSoundEnabled(enabled: Boolean) = viewModelScope.launch { container.profileRepository.setSoundEnabled(enabled) }
     fun setHapticEnabled(enabled: Boolean) = viewModelScope.launch { container.profileRepository.setHapticEnabled(enabled) }
-    fun completeOnboarding() = viewModelScope.launch { container.profileRepository.completeOnboarding() }
 }

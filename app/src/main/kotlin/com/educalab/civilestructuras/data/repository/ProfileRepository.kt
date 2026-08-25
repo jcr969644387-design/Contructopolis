@@ -36,9 +36,15 @@ class ProfileRepository(private val profileDao: ProfileDao) {
         profileDao.upsert(current.copy(hapticEnabled = enabled))
     }
 
-    suspend fun completeOnboarding() {
+    suspend fun completeOnboarding(alias: String, avatarId: Int) {
         val current = profileDao.get() ?: return
-        profileDao.upsert(current.copy(onboardingCompleted = true))
+        profileDao.upsert(
+            current.copy(
+                alias = alias.take(MAX_ALIAS_LENGTH).ifBlank { current.alias },
+                avatarId = avatarId.coerceIn(0, UserProfileEntity.AVATAR_COUNT - 1),
+                onboardingCompleted = true
+            )
+        )
     }
 
     companion object {
