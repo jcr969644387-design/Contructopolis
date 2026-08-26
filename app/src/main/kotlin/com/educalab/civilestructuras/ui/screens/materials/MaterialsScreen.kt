@@ -40,10 +40,15 @@ fun MaterialsScreen(container: AppContainer, onAllMaterialsConfirmed: () -> Unit
     val viewModel: MaterialsViewModel = viewModel(factory = GenericViewModelFactory({ MaterialsViewModel(it) }, container))
     val profileViewModel: ProfileViewModel = viewModel(factory = GenericViewModelFactory({ ProfileViewModel(it) }, container))
     val materials by viewModel.materials.collectAsState()
+    val profile by profileViewModel.profile.collectAsState()
+    val alreadyViewed = profile?.materialsViewed == true
     var confirmed by remember { mutableStateOf(setOf<String>()) }
     var showReadyDialog by remember { mutableStateOf(false) }
+    LaunchedEffect(alreadyViewed, materials) {
+        if (alreadyViewed && materials.isNotEmpty()) confirmed = materials.map { it.id }.toSet()
+    }
     LaunchedEffect(confirmed, materials) {
-        if (materials.isNotEmpty() && confirmed.containsAll(materials.map { it.id })) {
+        if (!alreadyViewed && materials.isNotEmpty() && confirmed.containsAll(materials.map { it.id })) {
             profileViewModel.markMaterialsViewed()
             showReadyDialog = true
         }

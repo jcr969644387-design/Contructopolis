@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -89,9 +90,14 @@ private val CONCEPTS = listOf(
 @Composable
 fun ConceptsScreen(container: AppContainer, onAllConceptsConfirmed: () -> Unit) {
     val viewModel: ProfileViewModel = viewModel(factory = GenericViewModelFactory({ ProfileViewModel(it) }, container))
+    val profile by viewModel.profile.collectAsState()
+    val alreadyViewed = profile?.conceptsViewed == true
     var confirmed by remember { mutableStateOf(setOf<String>()) }
+    LaunchedEffect(alreadyViewed) {
+        if (alreadyViewed) confirmed = CONCEPTS.map { it.title }.toSet()
+    }
     LaunchedEffect(confirmed) {
-        if (confirmed.size >= CONCEPTS.size) {
+        if (!alreadyViewed && confirmed.size >= CONCEPTS.size) {
             viewModel.markConceptsViewed()
             onAllConceptsConfirmed()
         }
